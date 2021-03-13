@@ -17,9 +17,9 @@ namespace Test_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public Employee[] Get()
         {
-            return new List<Employee> {
+            var output = new List<Employee> {
                 new Employee {
                     BirthDate = new DateTime (1992,10,15),
                     FirstName = "Alexei",
@@ -32,6 +32,7 @@ namespace Test_api.Controllers
                     LastName = "Petrov",
                 }
             };
+            return output.ToArray();
         }
     }
 }
