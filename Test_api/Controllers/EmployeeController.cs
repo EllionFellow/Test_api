@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Test_api.Controllers
 {
@@ -20,7 +19,7 @@ namespace Test_api.Controllers
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
-            return new List<Employee> { 
+            return new List<Employee> {
                 new Employee {
                     BirthDate = new DateTime (1992,10,15),
                     FirstName = "Alexei",
