@@ -27,6 +27,8 @@ namespace Test_api
             //Init swagger generator
             services.AddSwaggerGen();
 
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +54,7 @@ namespace Test_api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test_api");
                 c.RoutePrefix = String.Empty;
             });
+
 
         }
     }

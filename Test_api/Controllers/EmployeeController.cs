@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using Test_api.DO;
 
 namespace Test_api.Controllers
 {
@@ -9,30 +9,48 @@ namespace Test_api.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-        private readonly ILogger<EmployeeController> _logger;
+        private readonly IEmployeeRepository _repository;
 
-        public EmployeeController(ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeRepository repository)
         {
-            _logger = logger;
+            _repository = repository;
         }
 
+        /// <summary>
+        /// Get all employees
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public Employee[] Get()
+        public IEnumerable<DBEmployee> Get()
         {
-            var output = new List<Employee> {
-                new Employee {
-                    BirthDate = new DateTime (1992,10,15),
-                    FirstName = "Alexei",
-                    LastName = "Sorotsky",
-                    MiddleName = "Anatolievich",
-                },
-                new Employee {
-                    BirthDate = new DateTime (2000,8,22),
-                    FirstName = "Ivan",
-                    LastName = "Petrov",
-                }
-            };
-            return output.ToArray();
+            return _repository.GetEmployees();
+        }
+
+        /// <summary>
+        /// Create new employee
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
+        {
+            return _repository.NewEmployee(lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth);
+        }
+
+        /// <summary>
+        /// Delete employee
+        /// </summary>
+        /// <param name="id">Employee id</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public bool DeleteEmployee(Guid id)
+        {
+            return _repository.DeleteEmployee(id);
+        }
+
+        [HttpPost]
+        public bool UpdateEmployee(Guid id, string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
+        {
+            return _repository.UpdateEmployee(new DBEmployee(id, lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth));
         }
     }
 }

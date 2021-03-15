@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using Test_api.Entity;
 
 namespace Test_api
 {
     /// <summary>
-    /// DO for Employee
+    /// DTO for Employee
     /// </summary>
     public class Employee
     {
+        /// <summary>
+        /// Employee ID
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Date of birth NOT NULL
         /// </summary>
@@ -26,5 +33,10 @@ namespace Test_api
         /// Middle name field(מעקוסעגמ) 
         /// </summary>
         public string MiddleName { get; set; }
+
+        /// <summary>
+        /// Positions of employee
+        /// </summary>
+        public IEnumerable<DBPosition> Positions { get; set; }
     }
 }
