@@ -13,7 +13,7 @@ namespace Test_api
         /// Get all employees
         /// </summary>
         /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<DBEmployee> GetEmployees();
+        public IEnumerable<Employee> GetEmployees();
 
         /// <summary>
         /// Create new employee

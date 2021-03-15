@@ -21,7 +21,7 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public IEnumerable<DBEmployee> Get()
+        public IEnumerable<Employee> Get()
         {
             return _repository.GetEmployees();
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Test_api.DO;
 using Test_api.Entity;
 
 namespace Test_api.Repositories.Impl
@@ -91,6 +92,21 @@ namespace Test_api.Repositories.Impl
                 catch (Exception)
                 {
                     return false;
+                }
+            }
+        }
+
+        public IEnumerable<DBPosition> GetEmployeePositions(DBEmployee employee)
+        {
+            using (IDbConnection db = new NpgsqlConnection(dbConnect))
+            {
+                try
+                {
+                    return db.Query<DBPosition>("SELECT p.id, p.name, p.grade FROM position As p INNER JOIN employeegrade AS eg ON eg.positionId = p.id INNER JOIN employee AS e ON eg.employeeId  = @Id;", new { Id = employee.Id });
+                }
+                catch (Exception)
+                {
+                    return null;
                 }
             }
         }

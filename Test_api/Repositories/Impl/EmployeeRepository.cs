@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
@@ -15,24 +16,37 @@ namespace Test_api
     public class EmployeeRepository : IEmployeeRepository
     {
         public IConfiguration Configuration { get; }
-        private string dbConnect;
+        private readonly string _dbConnect;
+        private readonly IMapper _mapper;
+        private readonly IPositionRepository _positionRepository;
 
-        public EmployeeRepository(IConfiguration configuration)
+        public EmployeeRepository(IConfiguration configuration, IPositionRepository positionRepository, IMapper mapper)
         {
             Configuration = configuration;
-            dbConnect = Configuration.GetConnectionString("dbConnection");
+            _dbConnect = Configuration.GetConnectionString("dbConnection");
+            _positionRepository = positionRepository;
+            _mapper = mapper;
         }
 
         
 
         /// <inheritdoc/>
-        public IEnumerable<DBEmployee> GetEmployees()
+        public IEnumerable<Employee> GetEmployees()
         {
-            using (IDbConnection db = new NpgsqlConnection(dbConnect))
+            using (IDbConnection db = new NpgsqlConnection(_dbConnect))
             {
                 try
                 {
-                    return db.Query<DBEmployee>("SELECT * FROM employee");
+                    var dbEmployees = db.Query<DBEmployee>("SELECT * FROM employee");
+                    List<Employee> employees = new List<Employee>();
+                    foreach (var item in dbEmployees)
+                    {
+                        var emp = new Employee();
+                        _mapper.Map(item, emp);
+                        emp.Positions = _positionRepository.GetEmployeePositions(item);
+                        employees.Add(emp);
+                    }
+                    return employees;
                 }
                 catch (Exception)
                 {
@@ -45,7 +59,7 @@ namespace Test_api
         public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
         {
             var birthDate = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);
-            using (IDbConnection db = new NpgsqlConnection(dbConnect))
+            using (IDbConnection db = new NpgsqlConnection(_dbConnect))
             {
                 Guid id = Guid.NewGuid();
                 DBEmployee emp = new DBEmployee(id, lastName, firstName, middleName, birthDate);
@@ -64,7 +78,7 @@ namespace Test_api
         /// <inheritdoc/>
         public bool DeleteEmployee(Guid id)
         {
-            using (IDbConnection db = new NpgsqlConnection(dbConnect))
+            using (IDbConnection db = new NpgsqlConnection(_dbConnect))
             {
                 try
                 {
@@ -81,7 +95,7 @@ namespace Test_api
         /// <inheritdoc/>
         public bool UpdateEmployee(DBEmployee employee)
         {
-            using (IDbConnection db = new NpgsqlConnection(dbConnect))
+            using (IDbConnection db = new NpgsqlConnection(_dbConnect))
             {
                 try
                 {
