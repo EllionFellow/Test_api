@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,21 @@ namespace Test_api
     /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
-        string dbConnection = "User ID = testapi; Password=testtest; Host=127.0.0.1; Port=5432; Database=Test_api_db;";
+        public IConfiguration Configuration { get; }
+        private string dbConnect;
+        public EmployeeRepository(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            dbConnect = Configuration.GetConnectionString("dbConnection");
+        }
+
+        
 
         /// <inheritdoc/>
         public IEnumerable<DBEmployee> GetEmployees()
         {
 
-            using (IDbConnection db = new NpgsqlConnection(dbConnection))
+            using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
@@ -36,7 +45,7 @@ namespace Test_api
         public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
         {
             var birthDate = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);
-            using (IDbConnection db = new NpgsqlConnection(dbConnection))
+            using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 Guid id = Guid.NewGuid();
                 DBEmployee emp = new DBEmployee(id, lastName, firstName, middleName, birthDate);
@@ -55,7 +64,7 @@ namespace Test_api
         /// <inheritdoc/>
         public bool DeleteEmployee(Guid id)
         {
-            using (IDbConnection db = new NpgsqlConnection(dbConnection))
+            using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
@@ -72,7 +81,7 @@ namespace Test_api
         /// <inheritdoc/>
         public bool UpdateEmployee(DBEmployee employee)
         {
-            using (IDbConnection db = new NpgsqlConnection(dbConnection))
+            using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
