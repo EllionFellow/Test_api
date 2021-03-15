@@ -37,14 +37,15 @@ namespace Test_api
             {
                 try
                 {
+                    var emp = new Employee();
                     var dbEmployees = db.Query<DBEmployee>("SELECT * FROM employee");
                     List<Employee> employees = new List<Employee>();
                     foreach (var item in dbEmployees)
                     {
-                        var emp = new Employee();
                         _mapper.Map(item, emp);
                         emp.Positions = _positionRepository.GetEmployeePositions(item);
                         employees.Add(emp);
+                        emp = new Employee();
                     }
                     return employees;
                 }

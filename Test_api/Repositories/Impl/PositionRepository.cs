@@ -102,7 +102,9 @@ namespace Test_api.Repositories.Impl
             {
                 try
                 {
-                    return db.Query<DBPosition>("SELECT p.id, p.name, p.grade FROM position As p INNER JOIN employeegrade AS eg ON eg.positionId = p.id INNER JOIN employee AS e ON eg.employeeId  = @Id;", new { Id = employee.Id });
+                    return db.Query<DBPosition>("SELECT p.id, p.name, p.grade FROM position As p " +
+                                                "INNER JOIN employeegrade AS eg ON eg.positionid = p.id " +
+                                                "WHERE eg.employeeid = @Id;", new { Id = employee.Id });
                 }
                 catch (Exception)
                 {
