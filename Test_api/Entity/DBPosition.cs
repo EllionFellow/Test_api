@@ -9,7 +9,19 @@ namespace Test_api.Entity
     /// Database presentation of position
     /// </summary>
     public class DBPosition
-    { 
+    {
+        public DBPosition(Guid id, string name, int grade)
+        {
+            Id = id;
+            Name = name;
+            Grade = grade;
+        }
+
+        /// <summary>
+        /// Position id
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Position name
         /// </summary>

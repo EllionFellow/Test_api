@@ -4,35 +4,33 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Test_api.DO;
+using System.Linq;
+using System.Threading.Tasks;
+using Test_api.Entity;
 
-namespace Test_api
+namespace Test_api.Repositories.Impl
 {
     /// <summary>
-    /// Implementation of IEmployeeRepository
-    /// <see cref="IEmployeeRepository"/>
+    /// Implementation of IPositionRepository
     /// </summary>
-    public class EmployeeRepository : IEmployeeRepository
+    public class PositionRepository : IPositionRepository
     {
         public IConfiguration Configuration { get; }
         private string dbConnect;
-
-        public EmployeeRepository(IConfiguration configuration)
+        public PositionRepository(IConfiguration configuration)
         {
             Configuration = configuration;
             dbConnect = Configuration.GetConnectionString("dbConnection");
         }
 
-        
-
-        /// <inheritdoc/>
-        public IEnumerable<DBEmployee> GetEmployees()
+        ///<inheritdoc/>
+        public IEnumerable<DBPosition> GetPositions()
         {
             using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
-                    return db.Query<DBEmployee>("SELECT * FROM employee");
+                    return db.Query<DBPosition>("SELECT * FROM position");
                 }
                 catch (Exception)
                 {
@@ -41,17 +39,16 @@ namespace Test_api
             }
         }
 
-        /// <inheritdoc/>
-        public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
+        ///<inheritdoc/>
+        public Guid? NewPosition(string name, int grade)
         {
-            var birthDate = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);
             using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 Guid id = Guid.NewGuid();
-                DBEmployee emp = new DBEmployee(id, lastName, firstName, middleName, birthDate);
+                DBPosition pos = new DBPosition(id, name, grade);
                 try
                 {
-                    db.Execute("INSERT INTO employee VALUES (@Id, @LastName, @FirstName, @MiddleName, @BirthDate)", emp);
+                    db.Execute("INSERT INTO position VALUES (@Id, @Name, @Grade)", pos);
                     return id;
                 }
                 catch (Exception)
@@ -61,14 +58,14 @@ namespace Test_api
             }
         }
 
-        /// <inheritdoc/>
-        public bool DeleteEmployee(Guid id)
+        ///<inheritdoc/>
+        public bool DeletePosition(Guid id)
         {
             using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
-                    db.Execute("DELETE FROM employee WHERE \"id\" = @Id", new { id });
+                    db.Execute("DELETE FROM position WHERE \"id\" = @Id", new { id });
                     return true;
                 }
                 catch (Exception)
@@ -78,19 +75,17 @@ namespace Test_api
             }
         }
 
-        /// <inheritdoc/>
-        public bool UpdateEmployee(DBEmployee employee)
+        ///<inheritdoc/>
+        public bool UpdatePosition(DBPosition position)
         {
             using (IDbConnection db = new NpgsqlConnection(dbConnect))
             {
                 try
                 {
-                    db.Execute("UPDATE employee SET " +
-                        "\"lastName\" = @LastName, " +
-                        "\"firstName\" = @FirstName, " +
-                        "\"middleName\" = @MiddleName, " +
-                        "\"birthDate\" = @BirthDate " +
-                        "WHERE \"id\" = @Id", employee);
+                    db.Execute("UPDATE position SET " +
+                        "\"Name\" = @Name, " +
+                        "\"Grade\" = @Grade, " +
+                        "WHERE \"id\" = @Id", position);
                     return true;
                 }
                 catch (Exception)

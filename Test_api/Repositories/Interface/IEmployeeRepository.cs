@@ -12,7 +12,7 @@ namespace Test_api
         /// <summary>
         /// Get all employees
         /// </summary>
-        /// <returns>All employees</returns>
+        /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
         public IEnumerable<DBEmployee> GetEmployees();
 
         /// <summary>
@@ -22,21 +22,21 @@ namespace Test_api
         /// <param name="firstName">First name (имя)</param>
         /// <param name="middleName">Middle name (отчество) - nullable(не обязательно)</param>
         /// <param name="birthDate">Date of birth (дата рождения)</param>
-        /// <returns>true if successful</returns>
+        /// <returns>id if successful, else null</returns>
         public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth);
 
         /// <summary>
         /// Delete emloyee by ID
         /// </summary>
         /// <param name="id">Employee id</param>
-        /// <returns></returns>
+        /// <returns>true, if successful</returns>
         public bool DeleteEmployee(Guid id);
 
         /// <summary>
         /// Change employee
         /// </summary>
         /// <param name="employee">New employee data (id cannot be changed)</param>
-        /// <returns></returns>
+        /// <returns>true, if successful</returns>
         public bool UpdateEmployee(DBEmployee employee);
     }
 }

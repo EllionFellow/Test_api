@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Test_api.Repositories.Impl;
 
 namespace Test_api
 {
@@ -29,6 +30,7 @@ namespace Test_api
 
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+            services.AddScoped<IPositionRepository, PositionRepository>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

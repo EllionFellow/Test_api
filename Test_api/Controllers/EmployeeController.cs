@@ -19,7 +19,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Get all employees
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
         [HttpGet]
         public IEnumerable<DBEmployee> Get()
         {
@@ -29,6 +29,12 @@ namespace Test_api.Controllers
         /// <summary>
         /// Create new employee
         /// </summary>
+        /// <param name="lastName">Last name</param>
+        /// <param name="firstName">First name</param>
+        /// <param name="middleName">Middle name</param>
+        /// <param name="yearOfBirth">Year of birth</param>
+        /// <param name="monthOfBirth">Month of birth</param>
+        /// <param name="dayOfBirth">Day of birth</param>
         /// <returns></returns>
         [HttpPut]
         public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
@@ -40,13 +46,24 @@ namespace Test_api.Controllers
         /// Delete employee
         /// </summary>
         /// <param name="id">Employee id</param>
-        /// <returns></returns>
+        /// <returns>true on success</returns>
         [HttpDelete]
         public bool DeleteEmployee(Guid id)
         {
             return _repository.DeleteEmployee(id);
         }
 
+        /// <summary>
+        /// Update employee
+        /// </summary>
+        /// <param name="id">Employee id</param>
+        /// <param name="lastName">Last name</param>
+        /// <param name="firstName">First name</param>
+        /// <param name="middleName">Middle name</param>
+        /// <param name="yearOfBirth">Year of birth</param>
+        /// <param name="monthOfBirth">Month of birth</param>
+        /// <param name="dayOfBirth">Day of birth</param>
+        /// <returns></returns>
         [HttpPost]
         public bool UpdateEmployee(Guid id, string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
         {
