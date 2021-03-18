@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Test_api.DO;
 using Test_api.Entity;
 
 namespace Test_api
@@ -14,7 +13,7 @@ namespace Test_api
         /// Get all positions
         /// </summary>
         /// <returns>All positions <see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<DBPosition> GetPositions();
+        public IEnumerable<DbPosition> GetPositions();
 
         /// <summary>
         /// Create new position
@@ -36,13 +35,13 @@ namespace Test_api
         /// </summary>
         /// <param name="employee">New position data (id cannot be changed)</param>
         /// <returns>true, if successful</returns>
-        public bool UpdatePosition(DBPosition position);
+        public bool UpdatePosition(DbPosition position);
 
         /// <summary>
         /// Get all positions of an employee
         /// </summary>
         /// <param name="employee"><see cref="DBEmployee"/></param>
         /// <returns>All positions of employee <see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<DBPosition> GetEmployeePositions(DBEmployee employee);
+        public IEnumerable<DbPosition> GetEmployeePositions(Guid id);
     }
 }

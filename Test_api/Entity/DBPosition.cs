@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Test_api.Entity
 {
     /// <summary>
     /// Database presentation of position
     /// </summary>
-    public class DBPosition
+    public class DbPosition
     {
-        public DBPosition(Guid id, string name, int grade)
+        public DbPosition(Guid id, string name, int grade)
         {
             Id = id;
             Name = name;

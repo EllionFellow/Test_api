@@ -4,7 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Data;
+using Test_api.Repositories;
 using Test_api.Repositories.Impl;
+using Test_api.Services.Implementations;
+using Test_api.Services.Interfaces;
 
 namespace Test_api
 {
@@ -28,9 +32,13 @@ namespace Test_api
             //Init swagger generator
             services.AddSwaggerGen();
 
+            services.AddScoped<IDbConnection, DbConnection>();
+
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddScoped<IPositionRepository, PositionRepository>();
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -11,7 +11,7 @@ namespace Test_api.DTO
         public DtoMapper()
         {
             #region Users
-            CreateMap<Employee, DBEmployee>()
+            CreateMap<Employee, DbEmployee>()
                 .ReverseMap();
             #endregion
         }

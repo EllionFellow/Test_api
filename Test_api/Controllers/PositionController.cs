@@ -21,7 +21,7 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>All positions <see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public IEnumerable<DBPosition> Get()
+        public IEnumerable<DbPosition> Get()
         {
             return _repository.GetPositions();
         }
@@ -59,7 +59,7 @@ namespace Test_api.Controllers
         [HttpPost]
         public bool UpdatePosition(Guid id, string name, int grade)
         {
-            return _repository.UpdatePosition(new DBPosition(id, name, grade));
+            return _repository.UpdatePosition(new DbPosition(id, name, grade));
         }
     }
 }

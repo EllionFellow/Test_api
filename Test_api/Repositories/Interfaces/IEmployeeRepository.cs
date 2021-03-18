@@ -37,6 +37,6 @@ namespace Test_api
         /// </summary>
         /// <param name="employee">New employee data (id cannot be changed)</param>
         /// <returns>true, if successful</returns>
-        public bool UpdateEmployee(DBEmployee employee);
+        public bool UpdateEmployee(DbEmployee employee);
     }
 }

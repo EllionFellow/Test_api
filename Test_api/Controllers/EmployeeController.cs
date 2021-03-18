@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using Test_api.DO;
+using Test_api.DTO.Request;
+using Test_api.DTO.Response;
+using Test_api.Services.Interfaces;
 
 namespace Test_api.Controllers
 {
@@ -10,10 +13,12 @@ namespace Test_api.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _repository;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(IEmployeeRepository repository)
+        public EmployeeController(IEmployeeRepository repository, IEmployeeService employeeService)
         {
             _repository = repository;
+            _employeeService = employeeService;
         }
 
         /// <summary>
@@ -21,9 +26,9 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public GetEmployeesResponse GetEmployees()
         {
-            return _repository.GetEmployees();
+            return _employeeService.GetEmployees(new GetEmployeesRequest());
         }
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace Test_api.Controllers
         [HttpPost]
         public bool UpdateEmployee(Guid id, string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
         {
-            return _repository.UpdateEmployee(new DBEmployee(id, lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth));
+            return _repository.UpdateEmployee(new DbEmployee(id, lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth));
         }
     }
 }
