@@ -10,12 +10,6 @@ namespace Test_api
     public interface IPositionRepository
     {
         /// <summary>
-        /// Get all positions
-        /// </summary>
-        /// <returns>All positions <see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<DbPosition> GetPositions();
-
-        /// <summary>
         /// Create new position
         /// </summary>
         /// <param name="name">Name of new position</param>
@@ -43,5 +37,11 @@ namespace Test_api
         /// <param name="employee"><see cref="DBEmployee"/></param>
         /// <returns>All positions of employee <see cref="IEnumerable{T}"/></returns>
         public IEnumerable<DbPosition> GetEmployeePositions(Guid id);
+
+        /// <summary>
+        /// Get all positions
+        /// </summary>
+        /// <returns>All positions of employee <see cref="IEnumerable{T}"/></returns>
+        public IEnumerable<DbPosition> GetPositions();
     }
 }

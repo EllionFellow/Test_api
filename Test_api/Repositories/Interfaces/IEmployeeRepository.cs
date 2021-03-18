@@ -13,7 +13,7 @@ namespace Test_api
         /// Get all employees
         /// </summary>
         /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<Employee> GetEmployees();
+        public IEnumerable<DbEmployee> GetEmployees();
 
         /// <summary>
         /// Create new employee
@@ -23,7 +23,7 @@ namespace Test_api
         /// <param name="middleName">Middle name (отчество) - nullable(не обязательно)</param>
         /// <param name="birthDate">Date of birth (дата рождения)</param>
         /// <returns>id if successful, else null</returns>
-        public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth);
+        public void NewEmployee(DbEmployee employee);
 
         /// <summary>
         /// Delete emloyee by ID

@@ -1,5 +1,7 @@
 ﻿using AutoMapper.Configuration;
+using System;
 using Test_api.DO;
+using Test_api.DTO.Request;
 
 namespace Test_api.DTO
 {
@@ -10,10 +12,20 @@ namespace Test_api.DTO
         /// </summary>
         public DtoMapper()
         {
-            #region Users
-            CreateMap<Employee, DbEmployee>()
+            #region Employee
+            CreateMap<DbEmployee, Employee>()
+                .ForMember(x => x.Positions, y => y.Ignore());
+
+            CreateMap<Employee, DbEmployee>();
+
+            CreateMap<NewEmployeeRequest, DbEmployee>()
+                .ForMember(x => x.BirthDate, opt => opt.MapFrom(src => new DateTime(src.YearOfBirth, src.MonthOfBirth, src.DayOfBirth)));
+
+            CreateMap<UpdateEmployeeRequest, DbEmployee>()
                 .ReverseMap();
             #endregion
+
+
         }
     }
 }

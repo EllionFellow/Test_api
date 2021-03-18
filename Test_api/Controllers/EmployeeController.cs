@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Services.Interfaces;
@@ -28,7 +27,7 @@ namespace Test_api.Controllers
         [HttpGet]
         public GetEmployeesResponse GetEmployees()
         {
-            return _employeeService.GetEmployees(new GetEmployeesRequest());
+            return _employeeService.GetEmployees();
         }
 
         /// <summary>
@@ -42,9 +41,9 @@ namespace Test_api.Controllers
         /// <param name="dayOfBirth">Day of birth</param>
         /// <returns></returns>
         [HttpPut]
-        public Guid? NewEmployee(string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
+        public void NewEmployee(NewEmployeeRequest request)
         {
-            return _repository.NewEmployee(lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth);
+            _employeeService.NewEmployee(request);
         }
 
         /// <summary>
@@ -70,9 +69,9 @@ namespace Test_api.Controllers
         /// <param name="dayOfBirth">Day of birth</param>
         /// <returns></returns>
         [HttpPost]
-        public bool UpdateEmployee(Guid id, string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
+        public void UpdateEmployee(UpdateEmployeeRequest request)
         {
-            return _repository.UpdateEmployee(new DbEmployee(id, lastName, firstName, middleName, yearOfBirth, monthOfBirth, dayOfBirth));
+            _employeeService.UpdateEmployee(request);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Test_api.Repositories.Impl
         }
 
         ///<inheritdoc/>
-        public IEnumerable<DbPosition> GetPositions()
+        public IEnumerable<DbPosition> GetPositions(Guid id)
         {
             using IDbConnection db = new NpgsqlConnection(dbConnect);
             try
@@ -89,6 +89,12 @@ namespace Test_api.Repositories.Impl
             return db.Query<DbPosition>(@"SELECT p.id, p.name, p.grade FROM position As p 
                                                 INNER JOIN employeegrade AS eg ON eg.positionid = p.id 
                                                 WHERE eg.employeeid = @id;", new { id });
+        }
+
+        public IEnumerable<DbPosition> GetPositions()
+        {
+            using IDbConnection db = new NpgsqlConnection(dbConnect);
+            return db.Query<DbPosition>(@"SELECT id, name, grade FROM position");
         }
     }
 }

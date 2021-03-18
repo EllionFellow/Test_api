@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Test_api.Entity;
 
 namespace Test_api.Services.Implementations
 {
@@ -10,6 +9,16 @@ namespace Test_api.Services.Implementations
     /// </summary>
     public class PositionService : IPositionService
     {
+        private readonly IPositionRepository _positionRepository;
 
+        public PositionService(IPositionRepository positionRepository)
+        {
+            _positionRepository = positionRepository;
+        }
+
+        public IEnumerable<DbPosition> GetPositions(Guid id)
+        {
+            return _positionRepository.GetEmployeePositions(id);
+        }
     }
 }

@@ -39,6 +39,8 @@ namespace Test_api
             services.AddScoped<IPositionRepository, PositionRepository>();
 
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.AddScoped<IPositionService, PositionService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

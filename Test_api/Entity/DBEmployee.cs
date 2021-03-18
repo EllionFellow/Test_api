@@ -8,42 +8,6 @@ namespace Test_api.DO
     public class DbEmployee
     {
         /// <summary>
-        /// Constructor for DBEmployee with int presentation of date
-        /// </summary>
-        /// <param name="id">Employee ID</param>
-        /// <param name="lastName">Employee last name</param>
-        /// <param name="firstName">Employee first name</param>
-        /// <param name="middleName">Employee middle name</param>
-        /// <param name="yearOfBirth">Employee year of birth</param>
-        /// <param name="monthOfBirth">Employee month of birth</param>
-        /// <param name="dayOfBirth">Employee day of birth</param>
-        public DbEmployee(Guid id, string lastName, string firstName, string middleName, int yearOfBirth, int monthOfBirth, int dayOfBirth)
-        {
-            Id = id;
-            LastName = lastName;
-            FirstName = firstName;
-            MiddleName = middleName;
-            BirthDate = new DateTime(yearOfBirth, monthOfBirth, dayOfBirth);
-        }
-
-        /// <summary>
-        /// Constructor for DBEmployee with DateTime of date
-        /// </summary>
-        /// <param name="id">Employee ID</param>
-        /// <param name="lastName">Employee last name</param>
-        /// <param name="firstName">Employee first name</param>
-        /// <param name="middleName">Employee middle name</param>
-        /// <param name="birthDate">Employee date of birth</param>
-        public DbEmployee(Guid id, string lastName, string firstName, string middleName, DateTime birthDate)
-        {
-            Id = id;
-            LastName = lastName;
-            FirstName = firstName;
-            MiddleName = middleName;
-            BirthDate = birthDate;
-        }
-
-        /// <summary>
         /// Database employee id
         /// </summary>
         public Guid Id { get; set; }
