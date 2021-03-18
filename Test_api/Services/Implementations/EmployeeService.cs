@@ -25,6 +25,19 @@ namespace Test_api.Services.Implementations
         }
 
         /// <inheritdoc/>
+        public void DeleteEmployee(DeleteEmployeeRequest request)
+        {
+            try
+            {
+                _employeeRepository.DeleteEmployee(request.Id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <inheritdoc/>
         public GetEmployeesResponse GetEmployees()
         {
             var response = _employeeRepository.GetEmployees();
@@ -39,6 +52,7 @@ namespace Test_api.Services.Implementations
             return new GetEmployeesResponse(result);
         }
 
+        /// <inheritdoc/>
         public void NewEmployee(NewEmployeeRequest request)
         {
             try
@@ -53,6 +67,7 @@ namespace Test_api.Services.Implementations
             }
         }
 
+        /// <inheritdoc/>
         public void UpdateEmployee(UpdateEmployeeRequest request)
         {
             try

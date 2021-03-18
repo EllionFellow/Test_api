@@ -1,7 +1,7 @@
 ﻿namespace Test_api.DTO.Request
 {
     /// <summary>
-    /// DTO for GetE,ployeesRequest
+    /// DTO for GetEmployeesRequest
     /// </summary>
     public class GetEmployeesRequest
     {

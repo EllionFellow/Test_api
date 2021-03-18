@@ -14,14 +14,10 @@ namespace Test_api
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IDbConnection _connection;
-        private readonly IMapper _mapper;
-        private readonly IPositionRepository _positionRepository;
 
-        public EmployeeRepository(IDbConnection connection, IPositionRepository positionRepository, IMapper mapper)
+        public EmployeeRepository(IDbConnection connection)
         {
             _connection = connection;
-            _positionRepository = positionRepository;
-            _mapper = mapper;
         }
 
         /// <inheritdoc/>

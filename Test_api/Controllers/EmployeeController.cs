@@ -11,12 +11,10 @@ namespace Test_api.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeRepository _repository;
         private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(IEmployeeRepository repository, IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _repository = repository;
             _employeeService = employeeService;
         }
 
@@ -49,12 +47,11 @@ namespace Test_api.Controllers
         /// <summary>
         /// Delete employee
         /// </summary>
-        /// <param name="id">Employee id</param>
-        /// <returns>true on success</returns>
+        /// <param name="request"><see cref="DeleteEmployeeRequest"/></param>
         [HttpDelete]
-        public bool DeleteEmployee(Guid id)
+        public void DeleteEmployee(DeleteEmployeeRequest request)
         {
-            return _repository.DeleteEmployee(id);
+            _employeeService.DeleteEmployee(request);
         }
 
         /// <summary>

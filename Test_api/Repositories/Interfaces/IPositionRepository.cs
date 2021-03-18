@@ -12,24 +12,23 @@ namespace Test_api
         /// <summary>
         /// Create new position
         /// </summary>
-        /// <param name="name">Name of new position</param>
-        /// <param name="grade">Grade of new position</param>
+        /// <param name="dbPosition"><see cref="DbPosition"/></param>
         /// <returns>Id if successful, else null</returns>
-        public Guid? NewPosition(string name, int grade);
+        public void NewPosition(DbPosition dbPosition);
 
         /// <summary>
         /// Delete position by ID
         /// </summary>
         /// <param name="id">Position id</param>
         /// <returns>true, if successful</returns>
-        public bool DeletePosition(Guid id);
+        public void DeletePosition(Guid id);
 
         /// <summary>
         /// Change position
         /// </summary>
         /// <param name="employee">New position data (id cannot be changed)</param>
         /// <returns>true, if successful</returns>
-        public bool UpdatePosition(DbPosition position);
+        public void UpdatePosition(DbPosition position);
 
         /// <summary>
         /// Get all positions of an employee
@@ -43,5 +42,12 @@ namespace Test_api
         /// </summary>
         /// <returns>All positions of employee <see cref="IEnumerable{T}"/></returns>
         public IEnumerable<DbPosition> GetPositions();
+
+        /// <summary>
+        /// Get position by id
+        /// </summary>
+        /// <param name="id">Position id</param>
+        /// <returns></returns>
+        public DbPosition GetPosition(Guid id);
     }
 }

@@ -25,5 +25,11 @@ namespace Test_api.Services.Interfaces
         /// </summary>
         /// <param name="request"><see cref="UpdateEmployeeRequest"/></param>
         public void UpdateEmployee(UpdateEmployeeRequest request);
+
+        /// <summary>
+        /// Delete employee
+        /// </summary>
+        /// <param name="request"><see cref="DeleteEmployeeRequest"/></param>
+        public void DeleteEmployee(DeleteEmployeeRequest request);
     }
 }

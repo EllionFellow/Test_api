@@ -33,40 +33,37 @@ namespace Test_api.Repositories.Impl
         }
 
         ///<inheritdoc/>
-        public Guid? NewPosition(string name, int grade)
+        public void NewPosition(DbPosition dbPosition)
         {
             using IDbConnection db = new NpgsqlConnection(dbConnect);
-            Guid id = Guid.NewGuid();
-            DbPosition pos = new DbPosition(id, name, grade);
+            dbPosition.Id = Guid.NewGuid();
             try
             {
                 db.Execute(@"INSERT INTO position 
-                           VALUES (@Id, @Name, @Grade)", pos);
-                return id;
+                           VALUES (@Id, @Name, @Grade)", dbPosition);
             }
             catch (Exception)
             {
-                return null;
+                throw;
             }
         }
 
         ///<inheritdoc/>
-        public bool DeletePosition(Guid id)
+        public void DeletePosition(Guid id)
         {
             using IDbConnection db = new NpgsqlConnection(dbConnect);
             try
             {
                 db.Execute("DELETE FROM position WHERE id = @id", new { id });
-                return true;
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 
         ///<inheritdoc/>
-        public bool UpdatePosition(DbPosition position)
+        public void UpdatePosition(DbPosition position)
         {
             using IDbConnection db = new NpgsqlConnection(dbConnect);
             try
@@ -75,11 +72,10 @@ namespace Test_api.Repositories.Impl
                             name = @Name, 
                             grade = @Grade, 
                             WHERE id = @Id", position);
-                return true;
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 
@@ -94,7 +90,13 @@ namespace Test_api.Repositories.Impl
         public IEnumerable<DbPosition> GetPositions()
         {
             using IDbConnection db = new NpgsqlConnection(dbConnect);
-            return db.Query<DbPosition>(@"SELECT id, name, grade FROM position");
+            return db.Query<DbPosition>("SELECT id, name, grade FROM position");
+        }
+
+        public DbPosition GetPosition(Guid id)
+        {
+            using IDbConnection db = new NpgsqlConnection(dbConnect);
+            return db.ExecuteScalar<DbPosition>($"SELECT id, name, grade FROM position WHERE id = @id", new { id });
         }
     }
 }

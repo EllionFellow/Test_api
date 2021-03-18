@@ -2,6 +2,7 @@
 using System;
 using Test_api.DO;
 using Test_api.DTO.Request;
+using Test_api.Entity;
 
 namespace Test_api.DTO
 {
@@ -25,6 +26,14 @@ namespace Test_api.DTO
                 .ReverseMap();
             #endregion
 
+            #region Position
+            CreateMap<NewPositionRequest, DbPosition>()
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ReverseMap();
+
+            CreateMap<UpdatePositionRequest, DbPosition>()
+                .ReverseMap();
+            #endregion
 
         }
     }

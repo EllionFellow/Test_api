@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Test_api.Entity
+namespace Test_api.DTO.Request
 {
     /// <summary>
-    /// Database presentation of position
+    /// DTO for UpdatePositionRequest
     /// </summary>
-    public class DbPosition
+    public class UpdatePositionRequest
     {
         /// <summary>
         /// Position id

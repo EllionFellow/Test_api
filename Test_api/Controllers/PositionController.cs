@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Test_api.DTO.Request;
 using Test_api.Entity;
 
 namespace Test_api.Controllers
@@ -9,33 +10,31 @@ namespace Test_api.Controllers
     [Route("[controller]")]
     public class PositionController : ControllerBase
     {
-        private readonly IPositionRepository _repository;
+        private readonly IPositionService _positionService;
 
-        public PositionController(IPositionRepository repository)
+        public PositionController(IPositionService positionService)
         {
-            _repository = repository;
+            _positionService = positionService;
         }
 
         /// <summary>
         /// Get all positions
         /// </summary>
-        /// <returns>All positions <see cref="IEnumerable{T}"/></returns>
+        /// <returns>All positions <see cref="DbPosition"/><see cref="IEnumerable{T}"/></returns>
         [HttpGet]
         public IEnumerable<DbPosition> Get()
         {
-            return _repository.GetPositions();
+            return _positionService.GetPositions();
         }
 
         /// <summary>
         /// Create new position
         /// </summary>
-        /// <param name="name">Position name</param>
-        /// <param name="grade">Position grade (1..15)</param>
-        /// <returns>id if successful</returns>
+        /// <param name="request"><see cref="NewPositionRequest"/></param>
         [HttpPut]
-        public Guid? NewPosition(string name, int grade)
+        public void NewPosition(NewPositionRequest request)
         {
-            return _repository.NewPosition(name, grade);
+            _positionService.NewPosition(request);
         }
 
         /// <summary>
@@ -44,9 +43,9 @@ namespace Test_api.Controllers
         /// <param name="id">Position id</param>
         /// <returns>true if successful</returns>
         [HttpDelete]
-        public bool DeletePosition(Guid id)
+        public void DeletePosition(DeletePositionRequest request)
         {
-            return _repository.DeletePosition(id);
+            _positionService.DeletePosition(request);
         }
 
         /// <summary>
@@ -57,9 +56,9 @@ namespace Test_api.Controllers
         /// <param name="grade">Position grade</param>
         /// <returns>true if successful</returns>
         [HttpPost]
-        public bool UpdatePosition(Guid id, string name, int grade)
+        public void UpdatePosition(UpdatePositionRequest request)
         {
-            return _repository.UpdatePosition(new DbPosition(id, name, grade));
+            _positionService.UpdatePosition(request);
         }
     }
 }
