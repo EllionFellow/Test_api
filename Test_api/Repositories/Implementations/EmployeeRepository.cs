@@ -31,7 +31,7 @@ namespace Test_api
             {
                 _connection.Open();
                 var emp = new Employee();
-                var dbEmployees = _connection.Query<DbEmployee>("SELECT id, lastName, firstName, middleName, birthDate FROM employee");
+                var dbEmployees = _connection.Query<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee");
                 List<Employee> employees = new List<Employee>();
                 foreach (var item in dbEmployees)
                 {
