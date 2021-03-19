@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Test_api.DTO.Request
+﻿namespace Test_api.DTO.Request
 {
     /// <summary>
     /// DTO for GetEmployeeRequest

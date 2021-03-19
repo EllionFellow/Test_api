@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.Repositories.Interfaces;

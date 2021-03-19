@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Test_api.DTO.Request;
 using Test_api.Services.Interfaces;
 

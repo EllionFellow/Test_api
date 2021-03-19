@@ -1,6 +1,4 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +26,7 @@ namespace Test_api.Repositories.Impl
         ///<inheritdoc/>
         public IEnumerable<DbPosition> GetPositions(Guid id)
         {
-                return _db.Query<DbPosition>(@"SELECT id, name, grade FROM position");
+            return _db.Query<DbPosition>(@"SELECT id, name, grade FROM position");
         }
 
         ///<inheritdoc/>
@@ -47,7 +45,7 @@ namespace Test_api.Repositories.Impl
         ///<inheritdoc/>
         public void UpdatePosition(DbPosition position)
         {
-                _db.Execute(@"UPDATE position SET 
+            _db.Execute(@"UPDATE position SET 
                             name = @Name, 
                             grade = @Grade, 
                             WHERE id = @Id", position);
