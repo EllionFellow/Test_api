@@ -10,6 +10,7 @@ namespace Test_api.Repositories.Impl
 {
     /// <summary>
     /// Implementation of IPositionRepository
+    /// <see cref="IPositionRepository"/>
     /// </summary>
     public class PositionRepository : IPositionRepository
     {

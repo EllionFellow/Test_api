@@ -15,11 +15,11 @@ namespace Test_api
     {
         #region DI
 
-        private readonly IDbConnection _connection;
+        private readonly IDbConnection _db;
 
         public EmployeeRepository(IDbConnection connection)
         {
-            _connection = connection;
+            _db = connection;
         }
 
         #endregion
@@ -29,8 +29,7 @@ namespace Test_api
         {
             try
             {
-                _connection.Open();
-                var dbEmployees = _connection.Query<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee");
+                var dbEmployees = _db.Query<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee");
                 return dbEmployees;
             }
             catch (Exception)
@@ -41,25 +40,25 @@ namespace Test_api
 
         public DbEmployee GetEmployee(Guid id)
         {
-            return _connection.QuerySingle<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee WHERE id = @id", new { id });
+            return _db.QuerySingle<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee WHERE id = @id", new { id });
         }
 
         /// <inheritdoc/>
         public void NewEmployee(DbEmployee employee)
         {
-            _connection.Execute("INSERT INTO employee VALUES (@Id, @LastName, @FirstName, @MiddleName, @BirthDate)", employee);
+            _db.Execute("INSERT INTO employee VALUES (@Id, @LastName, @FirstName, @MiddleName, @BirthDate)", employee);
         }
 
         /// <inheritdoc/>
         public void DeleteEmployee(Guid id)
         {
-            _connection.Execute("DELETE FROM employee WHERE \"id\" = @Id", new { id });
+            _db.Execute("DELETE FROM employee WHERE \"id\" = @Id", new { id });
         }
 
         /// <inheritdoc/>
         public void UpdateEmployee(DbEmployee employee)
         {
-            _connection.Execute("UPDATE employee SET " +
+            _db.Execute("UPDATE employee SET " +
                 "\"lastName\" = @LastName, " +
                 "\"firstName\" = @FirstName, " +
                 "\"middleName\" = @MiddleName, " +
@@ -69,7 +68,7 @@ namespace Test_api
 
         ~EmployeeRepository()
         {
-            _connection.Dispose();
+            _db.Dispose();
         }
     }
 }
