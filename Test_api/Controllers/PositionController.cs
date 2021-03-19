@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Test_api.DTO.Request;
+using Test_api.DTO.Response;
 using Test_api.Entity;
 
 namespace Test_api.Controllers
@@ -10,6 +11,8 @@ namespace Test_api.Controllers
     [Route("[controller]")]
     public class PositionController : ControllerBase
     {
+        #region DI
+
         private readonly IPositionService _positionService;
 
         public PositionController(IPositionService positionService)
@@ -17,14 +20,27 @@ namespace Test_api.Controllers
             _positionService = positionService;
         }
 
+        #endregion
+
         /// <summary>
         /// Get all positions
         /// </summary>
         /// <returns>All positions <see cref="DbPosition"/><see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public IEnumerable<DbPosition> Get()
+        public IEnumerable<DbPosition> GetPositions()
         {
             return _positionService.GetPositions();
+        }
+
+        /// <summary>
+        /// Get position by id
+        /// </summary>
+        /// <param name="id">Position id</param>
+        /// <returns></returns>
+        [HttpGet("{id:Guid}")]
+        public GetPositionResponse GetPosition(Guid id)
+        {
+            return _positionService.GetPosition(id);
         }
 
         /// <summary>

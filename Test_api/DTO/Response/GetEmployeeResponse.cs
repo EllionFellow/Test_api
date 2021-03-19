@@ -1,13 +1,13 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using Test_api.Entity;
 
-namespace Test_api
+namespace Test_api.DTO.Response
 {
     /// <summary>
-    /// MODEL for Employee
+    /// DTO for GetEmployeeResponse
     /// </summary>
-    public class Employee
+    public class GetEmployeeResponse
     {
         /// <summary>
         /// Employee ID
@@ -20,17 +20,17 @@ namespace Test_api
         public DateTime BirthDate { get; set; }
 
         /// <summary>
-        /// Last name field(фамилия) NOT NULL
+        /// Last name field(С„Р°РјРёР»РёСЏ) NOT NULL
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// First name field(имя) NOT NULL
+        /// First name field(РёРјСЏ) NOT NULL
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Middle name field(отчество) 
+        /// Middle name field(РѕС‚С‡РµСЃС‚РІРѕ) 
         /// </summary>
         public string MiddleName { get; set; }
 

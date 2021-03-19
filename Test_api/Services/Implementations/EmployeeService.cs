@@ -13,6 +13,8 @@ namespace Test_api.Services.Implementations
     /// </summary>
     public class EmployeeService : IEmployeeService
     {
+        #region DI
+
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
         private readonly IPositionService _positionService;
@@ -23,6 +25,8 @@ namespace Test_api.Services.Implementations
             _positionService = positionService;
             _mapper = mapper;
         }
+
+        #endregion
 
         /// <inheritdoc/>
         public void DeleteEmployee(DeleteEmployeeRequest request)
@@ -50,6 +54,14 @@ namespace Test_api.Services.Implementations
             }
             IEnumerable<Employee> result = employees;
             return new GetEmployeesResponse(result);
+        }
+
+        ///<inheritdoc/>
+        public GetEmployeeResponse GetEmployee(Guid id)
+        {
+            var emp = _mapper.Map<DbEmployee, Employee>(_employeeRepository.GetEmployee(id));
+            emp.Positions = _positionService.GetPositions(emp.Id);
+            return _mapper.Map<Employee, GetEmployeeResponse>(emp);
         }
 
         /// <inheritdoc/>

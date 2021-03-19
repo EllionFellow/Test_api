@@ -2,6 +2,7 @@
 using System;
 using Test_api.DO;
 using Test_api.DTO.Request;
+using Test_api.DTO.Response;
 using Test_api.Entity;
 
 namespace Test_api.DTO
@@ -24,15 +25,18 @@ namespace Test_api.DTO
 
             CreateMap<UpdateEmployeeRequest, DbEmployee>()
                 .ReverseMap();
+
+            CreateMap<Employee, GetEmployeeResponse>();
             #endregion
 
             #region Position
             CreateMap<NewPositionRequest, DbPosition>()
-                .ForMember(x => x.Id, y => y.Ignore())
-                .ReverseMap();
+                .ForMember(x => x.Id, y => y.Ignore());
 
             CreateMap<UpdatePositionRequest, DbPosition>()
                 .ReverseMap();
+
+            CreateMap<DbPosition, GetPositionResponse>();
             #endregion
 
         }

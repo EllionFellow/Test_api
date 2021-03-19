@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Test_api.DTO.Request;
+using Test_api.DTO.Response;
 using Test_api.Entity;
 
 namespace Test_api
@@ -22,7 +23,7 @@ namespace Test_api
         /// </summary>
         /// <param name="id">Position id</param>
         /// <returns><see cref="DbPosition"/></returns>
-        public DbPosition GetPosition(Guid id);
+        public GetPositionResponse GetPosition(Guid id);
 
         /// <summary>
         /// Get all positions

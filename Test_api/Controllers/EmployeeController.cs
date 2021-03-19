@@ -11,12 +11,16 @@ namespace Test_api.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
+        #region DI
+
         private readonly IEmployeeService _employeeService;
 
         public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
         }
+
+        #endregion
 
         /// <summary>
         /// Get all employees
@@ -26,6 +30,16 @@ namespace Test_api.Controllers
         public GetEmployeesResponse GetEmployees()
         {
             return _employeeService.GetEmployees();
+        }
+
+        /// <summary>
+        /// Get employee
+        /// </summary>
+        /// <returns>Employee<see cref="Employee"/></returns>
+        [HttpGet("{id:Guid}")]
+        public GetEmployeeResponse GetEmployee(Guid id)
+        {
+            return _employeeService.GetEmployee(id);
         }
 
         /// <summary>

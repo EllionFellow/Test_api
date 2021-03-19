@@ -13,12 +13,16 @@ namespace Test_api
     /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
+        #region DI
+
         private readonly IDbConnection _connection;
 
         public EmployeeRepository(IDbConnection connection)
         {
             _connection = connection;
         }
+
+        #endregion
 
         /// <inheritdoc/>
         public IEnumerable<DbEmployee> GetEmployees()
@@ -35,6 +39,11 @@ namespace Test_api
             }
         }
 
+        public DbEmployee GetEmployee(Guid id)
+        {
+            return _connection.QuerySingle<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee WHERE id = @id", new { id });
+        }
+
         /// <inheritdoc/>
         public void NewEmployee(DbEmployee employee)
         {
@@ -42,22 +51,13 @@ namespace Test_api
         }
 
         /// <inheritdoc/>
-        public bool DeleteEmployee(Guid id)
+        public void DeleteEmployee(Guid id)
         {
-            try
-            {
-                _connection.Execute("DELETE FROM employee WHERE \"id\" = @Id", new { id });
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
+            _connection.Execute("DELETE FROM employee WHERE \"id\" = @Id", new { id });
         }
 
         /// <inheritdoc/>
-        public bool UpdateEmployee(DbEmployee employee)
+        public void UpdateEmployee(DbEmployee employee)
         {
             _connection.Execute("UPDATE employee SET " +
                 "\"lastName\" = @LastName, " +
@@ -65,7 +65,6 @@ namespace Test_api
                 "\"middleName\" = @MiddleName, " +
                 "\"birthDate\" = @BirthDate " +
                 "WHERE \"id\" = @Id", employee);
-            return true;
         }
 
         ~EmployeeRepository()

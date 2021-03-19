@@ -1,4 +1,5 @@
-﻿using Test_api.DTO.Request;
+﻿using System;
+using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 
 namespace Test_api.Services.Interfaces
@@ -13,6 +14,13 @@ namespace Test_api.Services.Interfaces
         /// </summary>
         /// <param name="request"><see cref="GetEmployeesRequest"/></param>
         public GetEmployeesResponse GetEmployees();
+
+        /// <summary>
+        /// Get employee by id
+        /// </summary>
+        /// <param name="request"><see cref="GetEmployeeRequest"/></param>
+        /// <returns></returns>
+        public GetEmployeeResponse GetEmployee(Guid id);
 
         /// <summary>
         /// Create new employee

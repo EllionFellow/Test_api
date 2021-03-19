@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Test_api.DTO.Request;
+using Test_api.DTO.Response;
 using Test_api.Entity;
 
 namespace Test_api.Services.Implementations
@@ -11,6 +12,8 @@ namespace Test_api.Services.Implementations
     /// </summary>
     public class PositionService : IPositionService
     {
+        #region DI
+
         private readonly IPositionRepository _positionRepository;
         private readonly IMapper _mapper;
 
@@ -19,6 +22,8 @@ namespace Test_api.Services.Implementations
             _positionRepository = positionRepository;
             _mapper = mapper;
         }
+
+        #endregion
 
         /// <inheritdoc/>
         public void NewPosition(NewPositionRequest request)
@@ -35,9 +40,9 @@ namespace Test_api.Services.Implementations
         }
 
         /// <inheritdoc/>
-        public DbPosition GetPosition(Guid id)
+        public GetPositionResponse GetPosition(Guid id)
         {
-            return _positionRepository.GetPosition(id);
+            return _mapper.Map<DbPosition, GetPositionResponse>(_positionRepository.GetPosition(id));
         }
 
         /// <inheritdoc/>

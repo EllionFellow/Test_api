@@ -16,6 +16,13 @@ namespace Test_api
         public IEnumerable<DbEmployee> GetEmployees();
 
         /// <summary>
+        /// Get employee by id
+        /// </summary>
+        /// <param name="id"><see cref="DbEmployee"/></param>
+        /// <returns></returns>
+        public DbEmployee GetEmployee(Guid id);
+
+        /// <summary>
         /// Create new employee
         /// </summary>
         /// <param name="lastName">Last name (фамилия)</param>
@@ -30,13 +37,13 @@ namespace Test_api
         /// </summary>
         /// <param name="id">Employee id</param>
         /// <returns>true, if successful</returns>
-        public bool DeleteEmployee(Guid id);
+        public void DeleteEmployee(Guid id);
 
         /// <summary>
         /// Change employee
         /// </summary>
         /// <param name="employee">New employee data (id cannot be changed)</param>
         /// <returns>true, if successful</returns>
-        public bool UpdateEmployee(DbEmployee employee);
+        public void UpdateEmployee(DbEmployee employee);
     }
 }
