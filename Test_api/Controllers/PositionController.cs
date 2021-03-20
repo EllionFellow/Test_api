@@ -88,6 +88,10 @@ namespace Test_api.Controllers
             {
                 _positionService.DeletePosition(request);
             }
+            catch (ArgumentOutOfRangeException)
+            {
+                HttpContext.Response.StatusCode = 405;
+            }
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
@@ -108,6 +112,7 @@ namespace Test_api.Controllers
             {
                 _positionService.UpdatePosition(request);
             }
+            
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;

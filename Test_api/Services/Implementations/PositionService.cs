@@ -45,7 +45,7 @@ namespace Test_api.Services.Implementations
             }
             else
             {
-                throw new Exception();
+                throw new ArgumentOutOfRangeException();
             }
         }
 

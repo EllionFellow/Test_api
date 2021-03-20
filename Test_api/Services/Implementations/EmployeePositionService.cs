@@ -29,11 +29,7 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
-            if (_employeePositionRepository.IsPositionOccupied(request.PositionId))
-            {
-                throw new Exception();
-            }
-            _employeePositionRepository.NewEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, DbEmployeePosition>(request));
+            _employeePositionRepository.DeleteEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, DbEmployeePosition>(request));
         }
 
         /// <inheritdoc/>
