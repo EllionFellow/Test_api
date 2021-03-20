@@ -33,7 +33,7 @@ namespace Test_api.Repositories.Implementations
         public bool IsPositionOccupied(Guid positionId)
         {
             var con = _db.QuerySingle<int>("SELECT COUNT (employeeid) FROM employeegrade WHERE positionid = @positionId", new { positionId });
-            return con == 0 ? false : true;
+            return con != 0;
         }
 
         /// <inheritdoc/>
