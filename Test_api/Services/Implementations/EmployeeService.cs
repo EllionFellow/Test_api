@@ -18,11 +18,13 @@ namespace Test_api.Services.Implementations
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
         private readonly IPositionService _positionService;
+        private readonly IEmployeePositionService _employeePositionService;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper, IPositionService positionService)
+        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper, IPositionService positionService, IEmployeePositionService employeePositionService)
         {
             _employeeRepository = employeeRepository;
             _positionService = positionService;
+            _employeePositionService = employeePositionService;
             _mapper = mapper;
         }
 
@@ -33,6 +35,7 @@ namespace Test_api.Services.Implementations
         {
             try
             {
+                _employeePositionService.DeleteEmployee(request.Id);
                 _employeeRepository.DeleteEmployee(request.Id);
             }
             catch (Exception)

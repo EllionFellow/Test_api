@@ -32,14 +32,20 @@ namespace Test_api.Repositories.Implementations
         /// <inheritdoc/>
         public bool IsPositionOccupied(Guid positionId)
         {
-            var con = _db.QuerySingle("SELECT employeeid, positionid FROM employeegrade WHERE positionid = @positionId", new { positionId });
-            return con == null ? false : true;
+            var con = _db.QuerySingle<int>("SELECT COUNT (employeeid) FROM employeegrade WHERE positionid = @positionId", new { positionId });
+            return con == 0 ? false : true;
         }
 
         /// <inheritdoc/>
         public void NewEmployeePosition(DbEmployeePosition employeePosition)
         {
             _db.Execute("INSERT INTO employeegrade VALUES (@employeeId, positionId)", employeePosition);
+        }
+
+        /// <inheritdoc/>
+        public void DeleteEmployee(Guid id)
+        {
+            _db.Execute("DELETE FROM employeegrade WHERE \"employeeid\" = @id", new { id });
         }
     }
 }

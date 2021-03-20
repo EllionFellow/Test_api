@@ -28,5 +28,11 @@ namespace Test_api.Repositories.Interfaces
         /// <param name="positionId">Position id</param>
         /// <returns>True if position is occupied</returns>
         public bool IsPositionOccupied(Guid positionId);
+
+        /// <summary>
+        /// Delete all employee connections from EmployeePosition
+        /// </summary>
+        /// <param name="id">Employee id</param>
+        public void DeleteEmployee(Guid id);
     }
 }

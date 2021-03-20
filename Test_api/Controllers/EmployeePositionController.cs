@@ -26,7 +26,15 @@ namespace Test_api.Controllers
         [HttpPost("NewEmployeePosition")]
         public void NewEmployeePosition(NewEmployeePositionRequest request)
         {
-            _employeePositionService.NewEmployeePosition(request);
+            try
+            {
+                _employeePositionService.NewEmployeePosition(request);
+            }
+            catch (System.Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
+            
         }
 
         /// <summary>
@@ -36,7 +44,14 @@ namespace Test_api.Controllers
         [HttpPost("DeleteEmployeePosition")]
         public void DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
-            _employeePositionService.DeleteEmployeePosition(request);
+            try
+            {
+                _employeePositionService.DeleteEmployeePosition(request);
+            }
+            catch (System.Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
     }
 }

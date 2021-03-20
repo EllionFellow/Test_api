@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Services.Interfaces;
@@ -29,7 +30,15 @@ namespace Test_api.Controllers
         [HttpGet]
         public GetEmployeesResponse GetEmployees()
         {
-            return _employeeService.GetEmployees();
+            try
+            {
+                return _employeeService.GetEmployees();
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+                return null;
+            }
         }
 
         /// <summary>
@@ -39,7 +48,15 @@ namespace Test_api.Controllers
         [HttpGet("{id:Guid}")]
         public GetEmployeeResponse GetEmployee(Guid id)
         {
-            return _employeeService.GetEmployee(id);
+            try
+            {
+                return _employeeService.GetEmployee(id);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+                return null;
+            }
         }
 
         /// <summary>
@@ -55,7 +72,14 @@ namespace Test_api.Controllers
         [HttpPut]
         public void NewEmployee(NewEmployeeRequest request)
         {
-            _employeeService.NewEmployee(request);
+            try
+            {
+                _employeeService.NewEmployee(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
 
         /// <summary>
@@ -65,8 +89,15 @@ namespace Test_api.Controllers
         [HttpDelete]
         public void DeleteEmployee(DeleteEmployeeRequest request)
         {
-            _employeeService.DeleteEmployee(request);
-        }
+            try
+            {
+                _employeeService.DeleteEmployee(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
+}
 
         /// <summary>
         /// Update employee
@@ -78,11 +109,17 @@ namespace Test_api.Controllers
         /// <param name="yearOfBirth">Year of birth</param>
         /// <param name="monthOfBirth">Month of birth</param>
         /// <param name="dayOfBirth">Day of birth</param>
-        /// <returns></returns>
         [HttpPost]
         public void UpdateEmployee(UpdateEmployeeRequest request)
         {
-            _employeeService.UpdateEmployee(request);
+            try
+            {
+                _employeeService.UpdateEmployee(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
     }
 }

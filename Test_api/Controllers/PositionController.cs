@@ -29,7 +29,15 @@ namespace Test_api.Controllers
         [HttpGet]
         public IEnumerable<DbPosition> GetPositions()
         {
-            return _positionService.GetPositions();
+            try
+            {
+                return _positionService.GetPositions();
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+                return null;
+            }
         }
 
         /// <summary>
@@ -40,7 +48,15 @@ namespace Test_api.Controllers
         [HttpGet("{id:Guid}")]
         public GetPositionResponse GetPosition(Guid id)
         {
-            return _positionService.GetPosition(id);
+            try
+            {
+                return _positionService.GetPosition(id);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+                return null;
+            }
         }
 
         /// <summary>
@@ -50,7 +66,14 @@ namespace Test_api.Controllers
         [HttpPut]
         public void NewPosition(NewPositionRequest request)
         {
-            _positionService.NewPosition(request);
+            try
+            {
+                _positionService.NewPosition(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
 
         /// <summary>
@@ -61,7 +84,14 @@ namespace Test_api.Controllers
         [HttpDelete]
         public void DeletePosition(DeletePositionRequest request)
         {
-            _positionService.DeletePosition(request);
+            try
+            {
+                _positionService.DeletePosition(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
 
         /// <summary>
@@ -74,7 +104,14 @@ namespace Test_api.Controllers
         [HttpPost]
         public void UpdatePosition(UpdatePositionRequest request)
         {
-            _positionService.UpdatePosition(request);
+            try
+            {
+                _positionService.UpdatePosition(request);
+            }
+            catch (Exception)
+            {
+                HttpContext.Response.StatusCode = 500;
+            }
         }
     }
 }

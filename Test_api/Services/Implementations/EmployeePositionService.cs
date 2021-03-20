@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.Repositories.Interfaces;
@@ -22,11 +23,16 @@ namespace Test_api.Services.Implementations
             _employeePositionRepository = employeePositionRepository;
             _mapper = mapper;
         }
+
         #endregion
 
         /// <inheritdoc/>
         public void DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
+            if (_employeePositionRepository.IsPositionOccupied(request.PositionId))
+            {
+                throw new Exception();
+            }
             _employeePositionRepository.NewEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, DbEmployeePosition>(request));
         }
 
@@ -34,6 +40,18 @@ namespace Test_api.Services.Implementations
         public void NewEmployeePosition(NewEmployeePositionRequest request)
         {
             _employeePositionRepository.NewEmployeePosition(_mapper.Map<NewEmployeePositionRequest, DbEmployeePosition>(request));
+        }
+
+        /// <inheritdoc/>
+        public void DeleteEmployee(Guid id)
+        {
+            _employeePositionRepository.DeleteEmployee(id);
+        }
+
+        /// <inheritdoc/>
+        public bool IsPositionOccupied(Guid id)
+        {
+            return _employeePositionRepository.IsPositionOccupied(id);
         }
     }
 }

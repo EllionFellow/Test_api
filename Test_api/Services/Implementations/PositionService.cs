@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Entity;
+using Test_api.Services.Interfaces;
 
 namespace Test_api.Services.Implementations
 {
@@ -15,11 +16,13 @@ namespace Test_api.Services.Implementations
         #region DI
 
         private readonly IPositionRepository _positionRepository;
+        private readonly IEmployeePositionService _employeePositionService;
         private readonly IMapper _mapper;
 
-        public PositionService(IPositionRepository positionRepository, IMapper mapper)
+        public PositionService(IPositionRepository positionRepository, IEmployeePositionService employeePositionService, IMapper mapper)
         {
             _positionRepository = positionRepository;
+            _employeePositionService = employeePositionService;
             _mapper = mapper;
         }
 
@@ -36,7 +39,14 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void DeletePosition(DeletePositionRequest request)
         {
-            _positionRepository.DeletePosition(request.Id);
+            if (!_employeePositionService.IsPositionOccupied(request.Id))
+            {
+                _positionRepository.DeletePosition(request.Id);
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         /// <inheritdoc/>
