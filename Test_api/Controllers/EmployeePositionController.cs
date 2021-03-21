@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using Test_api.DTO.Request;
 using Test_api.Services.Interfaces;
 
@@ -30,7 +31,11 @@ namespace Test_api.Controllers
             {
                 _employeePositionService.NewEmployeePosition(request);
             }
-            catch (System.Exception)
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+            }
+            catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
             }
@@ -48,7 +53,11 @@ namespace Test_api.Controllers
             {
                 _employeePositionService.DeleteEmployeePosition(request);
             }
-            catch (System.Exception)
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+            }
+            catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
             }

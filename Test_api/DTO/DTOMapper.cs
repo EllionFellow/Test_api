@@ -40,7 +40,7 @@ namespace Test_api.DTO
             #endregion
 
             #region EmployeePosition
-            CreateMap<NewPositionRequest, DbEmployeePosition>();
+            CreateMap<NewEmployeePositionRequest, DbEmployeePosition>();
 
             CreateMap<DeleteEmployeePositionRequest, DbEmployeePosition>();
             #endregion

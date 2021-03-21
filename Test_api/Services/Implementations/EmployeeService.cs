@@ -33,6 +33,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void DeleteEmployee(DeleteEmployeeRequest request)
         {
+            if (request.Id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             try
             {
                 _employeePositionService.DeleteEmployee(request.Id);
@@ -62,6 +66,10 @@ namespace Test_api.Services.Implementations
         ///<inheritdoc/>
         public GetEmployeeResponse GetEmployee(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             var emp = _mapper.Map<DbEmployee, Employee>(_employeeRepository.GetEmployee(id));
             emp.Positions = _positionService.GetPositions(emp.Id);
             return _mapper.Map<Employee, GetEmployeeResponse>(emp);
@@ -70,6 +78,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void NewEmployee(NewEmployeeRequest request)
         {
+            if (request.FirstName==string.Empty || request.LastName == string.Empty || request.MonthOfBirth>12 || request.YearOfBirth<1800 || request.YearOfBirth>(DateTime.Now.Year-16))
+            {
+                throw new ArgumentException();
+            }
             try
             {
                 var dbEmp = _mapper.Map<NewEmployeeRequest, DbEmployee>(request);
@@ -85,6 +97,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void UpdateEmployee(UpdateEmployeeRequest request)
         {
+            if (request.Id == Guid.Empty || request.FirstName == string.Empty || request.LastName == string.Empty || request.MonthOfBirth > 12 || request.YearOfBirth < 1800 || request.YearOfBirth > (DateTime.Now.Year - 16))
+            {
+                throw new ArgumentException();
+            }
             try
             {
                 _employeeRepository.UpdateEmployee(_mapper.Map<UpdateEmployeeRequest, DbEmployee>(request));

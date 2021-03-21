@@ -70,6 +70,10 @@ namespace Test_api.Controllers
             {
                 _positionService.NewPosition(request);
             }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+            }
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
@@ -90,7 +94,11 @@ namespace Test_api.Controllers
             }
             catch (ArgumentOutOfRangeException)
             {
-                HttpContext.Response.StatusCode = 405;
+                HttpContext.Response.StatusCode = 404;
+            }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
             }
             catch (Exception)
             {
@@ -112,7 +120,10 @@ namespace Test_api.Controllers
             {
                 _positionService.UpdatePosition(request);
             }
-            
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+            }
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;

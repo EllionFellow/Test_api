@@ -31,6 +31,7 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void NewPosition(NewPositionRequest request)
         {
+            if (request.Grade < 0 || request.Grade > 15 || request.Name==string.Empty) throw new ArgumentException();
             DbPosition dbPosition = _mapper.Map<NewPositionRequest, DbPosition>(request);
             dbPosition.Id = Guid.NewGuid();
             _positionRepository.NewPosition(dbPosition);
@@ -39,6 +40,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void DeletePosition(DeletePositionRequest request)
         {
+            if (request.Id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             if (!_employeePositionService.IsPositionOccupied(request.Id))
             {
                 _positionRepository.DeletePosition(request.Id);
@@ -52,6 +57,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public GetPositionResponse GetPosition(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             return _mapper.Map<DbPosition, GetPositionResponse>(_positionRepository.GetPosition(id));
         }
 
@@ -64,6 +73,10 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void UpdatePosition(UpdatePositionRequest request)
         {
+            if (request.Grade < 0 || request.Grade > 15 || request.Name == string.Empty || request.Id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             var dbPosition = _mapper.Map<UpdatePositionRequest, DbPosition>(request);
             _positionRepository.UpdatePosition(dbPosition);
         }

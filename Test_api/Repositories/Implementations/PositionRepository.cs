@@ -45,10 +45,7 @@ namespace Test_api.Repositories.Impl
         ///<inheritdoc/>
         public void UpdatePosition(DbPosition position)
         {
-            _db.Execute(@"UPDATE position SET 
-                            name = @Name, 
-                            grade = @Grade, 
-                            WHERE id = @Id", position);
+            _db.Execute("UPDATE position SET name = @Name, grade = @Grade WHERE id = @Id", position);
         }
 
         public IEnumerable<DbPosition> GetEmployeePositions(Guid id)

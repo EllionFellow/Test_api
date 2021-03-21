@@ -52,6 +52,11 @@ namespace Test_api.Controllers
             {
                 return _employeeService.GetEmployee(id);
             }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+                return null;
+            }
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
@@ -76,6 +81,10 @@ namespace Test_api.Controllers
             {
                 _employeeService.NewEmployee(request);
             }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
+            }
             catch (Exception)
             {
                 HttpContext.Response.StatusCode = 500;
@@ -92,6 +101,10 @@ namespace Test_api.Controllers
             try
             {
                 _employeeService.DeleteEmployee(request);
+            }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
             }
             catch (Exception)
             {
@@ -115,6 +128,10 @@ namespace Test_api.Controllers
             try
             {
                 _employeeService.UpdateEmployee(request);
+            }
+            catch (ArgumentException)
+            {
+                HttpContext.Response.StatusCode = 406;
             }
             catch (Exception)
             {

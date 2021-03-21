@@ -39,7 +39,7 @@ namespace Test_api.Repositories.Implementations
         /// <inheritdoc/>
         public void NewEmployeePosition(DbEmployeePosition employeePosition)
         {
-            _db.Execute("INSERT INTO employeegrade VALUES (@employeeId, positionId)", employeePosition);
+            _db.Execute("INSERT INTO employeegrade VALUES (@EmployeeId, @PositionId)", employeePosition);
         }
 
         /// <inheritdoc/>

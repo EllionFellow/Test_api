@@ -29,18 +29,30 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
+            if (request.EmployeeId == Guid.Empty || request.PositionId == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             _employeePositionRepository.DeleteEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, DbEmployeePosition>(request));
         }
 
         /// <inheritdoc/>
         public void NewEmployeePosition(NewEmployeePositionRequest request)
         {
+            if (request.EmployeeId == Guid.Empty || request.PositionId == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             _employeePositionRepository.NewEmployeePosition(_mapper.Map<NewEmployeePositionRequest, DbEmployeePosition>(request));
         }
 
         /// <inheritdoc/>
         public void DeleteEmployee(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException();
+            }
             _employeePositionRepository.DeleteEmployee(id);
         }
 
