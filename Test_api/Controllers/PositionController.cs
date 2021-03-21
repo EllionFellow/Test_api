@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -16,10 +17,12 @@ namespace Test_api.Controllers
         #region DI
 
         private readonly IPositionService _positionService;
+        private readonly ILogger _logger;
 
-        public PositionController(IPositionService positionService)
+        public PositionController(IPositionService positionService, ILogger logger)
         {
             _positionService = positionService;
+            _logger = logger;
         }
 
         #endregion
@@ -37,6 +40,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in GetPositions: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -55,6 +59,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in GetPosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -77,6 +82,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in NewPosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -104,6 +110,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in DeletePosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -129,6 +136,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in UpdatePosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }

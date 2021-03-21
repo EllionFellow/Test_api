@@ -65,6 +65,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in GetEmployee: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -97,6 +98,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in NewEmployee: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -119,6 +121,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in DeleteEmployee: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
 }
@@ -147,6 +150,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in UpdateEmployee: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }

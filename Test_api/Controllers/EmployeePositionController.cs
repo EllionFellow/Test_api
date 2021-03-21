@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using Test_api.DTO.Request;
@@ -13,10 +14,12 @@ namespace Test_api.Controllers
         #region DI
 
         private readonly IEmployeePositionService _employeePositionService;
+        private readonly ILogger _logger;
 
-        public EmployeePositionController(IEmployeePositionService employeePositionService)
+        public EmployeePositionController(IEmployeePositionService employeePositionService, ILogger logger)
         {
             _employeePositionService = employeePositionService;
+            _logger = logger;
         }
 
         #endregion
@@ -39,6 +42,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in NewEmployeePosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
@@ -61,6 +65,7 @@ namespace Test_api.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError($"Error in DeleteEmployeePosition: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
