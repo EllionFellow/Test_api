@@ -4,7 +4,7 @@ using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Entity;
 
-namespace Test_api
+namespace Test_api.Services.Interfaces
 {
     /// <summary>
     /// Interface for position service

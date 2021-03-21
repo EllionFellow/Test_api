@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using Test_api.DTO.Request;
 using Test_api.Services.Interfaces;
 
@@ -24,42 +25,43 @@ namespace Test_api.Controllers
         /// Create new employee - position connection
         /// </summary>
         /// <param name="request"></param>
-        [HttpPost("NewEmployeePosition")]
-        public void NewEmployeePosition(NewEmployeePositionRequest request)
+        [HttpPut]
+        public ActionResult NewEmployeePosition(NewEmployeePositionRequest request)
         {
             try
             {
                 _employeePositionService.NewEmployeePosition(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Employee id and position can not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
-            
         }
 
         /// <summary>
         /// Delete employee - position connection
         /// </summary>
         /// <param name="request"></param>
-        [HttpPost("DeleteEmployeePosition")]
-        public void DeleteEmployeePosition(DeleteEmployeePositionRequest request)
+        [HttpDelete]
+        public ActionResult DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
             try
             {
                 _employeePositionService.DeleteEmployeePosition(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Employee id and position can not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
     }

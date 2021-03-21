@@ -20,8 +20,7 @@ namespace Test_api.DTO
 
             CreateMap<Employee, DbEmployee>();
 
-            CreateMap<NewEmployeeRequest, DbEmployee>()
-                .ForMember(x => x.BirthDate, opt => opt.MapFrom(src => new DateTime(src.YearOfBirth, src.MonthOfBirth, src.DayOfBirth)));
+            CreateMap<NewEmployeeRequest, DbEmployee>();
 
             CreateMap<UpdateEmployeeRequest, DbEmployee>()
                 .ReverseMap();

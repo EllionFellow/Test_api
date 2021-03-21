@@ -51,7 +51,7 @@ namespace Test_api.Repositories.Impl
         public IEnumerable<DbPosition> GetEmployeePositions(Guid id)
         {
             return _db.Query<DbPosition>(@"SELECT p.id, p.name, p.grade FROM position As p 
-                                                INNER JOIN employeegrade AS eg ON eg.positionid = p.id 
+                                                INNER JOIN employeeposition AS eg ON eg.positionid = p.id 
                                                 WHERE eg.employeeid = @id;", new { id });
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -15,10 +16,12 @@ namespace Test_api.Controllers
         #region DI
 
         private readonly IEmployeeService _employeeService;
+        private readonly ILogger _logger;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
+            _logger = logger;
         }
 
         #endregion
@@ -28,16 +31,16 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>All employees <see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public GetEmployeesResponse GetEmployees()
+        public ActionResult<GetEmployeesResponse> GetEmployees()
         {
             try
             {
-                return _employeeService.GetEmployees();
+                return Ok(_employeeService.GetEmployees());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
-                return null;
+                _logger.LogError($"Error in GetEmployees: {e}");
+                return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -46,21 +49,23 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>Employee<see cref="Employee"/></returns>
         [HttpGet("{id:Guid}")]
-        public GetEmployeeResponse GetEmployee(Guid id)
+        public ActionResult<GetEmployeeResponse> GetEmployee(Guid id)
         {
             try
             {
-                return _employeeService.GetEmployee(id);
+                return Ok(_employeeService.GetEmployee(id));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"User with id {id} not found");
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
-                return null;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "id can not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
-                return null;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -75,19 +80,24 @@ namespace Test_api.Controllers
         /// <param name="dayOfBirth">Day of birth</param>
         /// <returns></returns>
         [HttpPut]
-        public void NewEmployee(NewEmployeeRequest request)
+        public ActionResult NewEmployee(NewEmployeeRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest();
+            }
             try
             {
                 _employeeService.NewEmployee(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, @"Last name and first name could not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -96,19 +106,20 @@ namespace Test_api.Controllers
         /// </summary>
         /// <param name="request"><see cref="DeleteEmployeeRequest"/></param>
         [HttpDelete]
-        public void DeleteEmployee(DeleteEmployeeRequest request)
+        public ActionResult DeleteEmployee(DeleteEmployeeRequest request)
         {
             try
             {
                 _employeeService.DeleteEmployee(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Id can not be null");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
 }
 
@@ -123,19 +134,20 @@ namespace Test_api.Controllers
         /// <param name="monthOfBirth">Month of birth</param>
         /// <param name="dayOfBirth">Day of birth</param>
         [HttpPost]
-        public void UpdateEmployee(UpdateEmployeeRequest request)
+        public ActionResult UpdateEmployee(UpdateEmployeeRequest request)
         {
             try
             {
                 _employeeService.UpdateEmployee(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Id can not be null, last name and first name could not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
     }

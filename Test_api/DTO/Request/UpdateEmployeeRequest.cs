@@ -28,18 +28,8 @@ namespace Test_api.DTO.Request
         public string MiddleName { get; set; }
 
         /// <summary>
-        /// Employee year of birth
+        /// Employee date of birth
         /// </summary>
-        public int YearOfBirth { get; set; }
-
-        /// <summary>
-        /// Employee month of birth
-        /// </summary>
-        public int MonthOfBirth { get; set; }
-
-        /// <summary>
-        /// Employee day of birth
-        /// </summary>
-        public int DayOfBirth { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

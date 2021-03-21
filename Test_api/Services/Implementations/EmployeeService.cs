@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
@@ -18,13 +19,11 @@ namespace Test_api.Services.Implementations
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
         private readonly IPositionService _positionService;
-        private readonly IEmployeePositionService _employeePositionService;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper, IPositionService positionService, IEmployeePositionService employeePositionService)
+        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper, IPositionService positionService)
         {
             _employeeRepository = employeeRepository;
             _positionService = positionService;
-            _employeePositionService = employeePositionService;
             _mapper = mapper;
         }
 
@@ -37,15 +36,7 @@ namespace Test_api.Services.Implementations
             {
                 throw new ArgumentException();
             }
-            try
-            {
-                _employeePositionService.DeleteEmployee(request.Id);
-                _employeeRepository.DeleteEmployee(request.Id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _employeeRepository.DeleteEmployee(request.Id);
         }
 
         /// <inheritdoc/>
@@ -70,7 +61,12 @@ namespace Test_api.Services.Implementations
             {
                 throw new ArgumentException();
             }
-            var emp = _mapper.Map<DbEmployee, Employee>(_employeeRepository.GetEmployee(id));
+            var employee = _employeeRepository.GetEmployee(id);
+            if (employee == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            var emp = _mapper.Map<DbEmployee, Employee>(employee);
             emp.Positions = _positionService.GetPositions(emp.Id);
             return _mapper.Map<Employee, GetEmployeeResponse>(emp);
         }
@@ -78,37 +74,23 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void NewEmployee(NewEmployeeRequest request)
         {
-            if (request.FirstName==string.Empty || request.LastName == string.Empty || request.MonthOfBirth>12 || request.YearOfBirth<1800 || request.YearOfBirth>(DateTime.Now.Year-16))
+            if (string.IsNullOrEmpty(request.FirstName) || string.IsNullOrEmpty(request.LastName))
             {
                 throw new ArgumentException();
             }
-            try
-            {
-                var dbEmp = _mapper.Map<NewEmployeeRequest, DbEmployee>(request);
-                dbEmp.Id = Guid.NewGuid();
-                _employeeRepository.NewEmployee(dbEmp);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var dbEmp = _mapper.Map<NewEmployeeRequest, DbEmployee>(request);
+            dbEmp.Id = Guid.NewGuid();
+            _employeeRepository.NewEmployee(dbEmp);
         }
 
         /// <inheritdoc/>
         public void UpdateEmployee(UpdateEmployeeRequest request)
         {
-            if (request.Id == Guid.Empty || request.FirstName == string.Empty || request.LastName == string.Empty || request.MonthOfBirth > 12 || request.YearOfBirth < 1800 || request.YearOfBirth > (DateTime.Now.Year - 16))
+            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.FirstName) || string.IsNullOrEmpty(request.LastName))
             {
                 throw new ArgumentException();
             }
-            try
-            {
-                _employeeRepository.UpdateEmployee(_mapper.Map<UpdateEmployeeRequest, DbEmployee>(request));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _employeeRepository.UpdateEmployee(_mapper.Map<UpdateEmployeeRequest, DbEmployee>(request));
         }
     }
 }

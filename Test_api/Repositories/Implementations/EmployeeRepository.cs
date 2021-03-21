@@ -39,7 +39,14 @@ namespace Test_api
 
         public DbEmployee GetEmployee(Guid id)
         {
-            return _db.QuerySingle<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee WHERE id = @id", new { id });
+            try
+            {
+                return _db.QuerySingle<DbEmployee>("SELECT \"id\", \"lastName\", \"firstName\", \"middleName\", \"birthDate\" FROM employee WHERE id = @id", new { id });
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <inheritdoc/>

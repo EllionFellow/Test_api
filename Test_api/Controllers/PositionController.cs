@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Entity;
+using Test_api.Services.Interfaces;
 
 namespace Test_api.Controllers
 {
@@ -27,16 +29,15 @@ namespace Test_api.Controllers
         /// </summary>
         /// <returns>All positions <see cref="DbPosition"/><see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public IEnumerable<DbPosition> GetPositions()
+        public ActionResult<IEnumerable<DbPosition>> GetPositions()
         {
             try
             {
-                return _positionService.GetPositions();
+                return Ok(_positionService.GetPositions());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
-                return null;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -46,16 +47,15 @@ namespace Test_api.Controllers
         /// <param name="id">Position id</param>
         /// <returns></returns>
         [HttpGet("{id:Guid}")]
-        public GetPositionResponse GetPosition(Guid id)
+        public ActionResult<GetPositionResponse> GetPosition(Guid id)
         {
             try
             {
-                return _positionService.GetPosition(id);
+                return Ok(_positionService.GetPosition(id));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
-                return null;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -64,19 +64,20 @@ namespace Test_api.Controllers
         /// </summary>
         /// <param name="request"><see cref="NewPositionRequest"/></param>
         [HttpPut]
-        public void NewPosition(NewPositionRequest request)
+        public ActionResult NewPosition(NewPositionRequest request)
         {
             try
             {
                 _positionService.NewPosition(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Grade must be from 1 to 15, name can not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -86,23 +87,24 @@ namespace Test_api.Controllers
         /// <param name="id">Position id</param>
         /// <returns>true if successful</returns>
         [HttpDelete]
-        public void DeletePosition(DeletePositionRequest request)
+        public ActionResult DeletePosition(DeletePositionRequest request)
         {
             try
             {
                 _positionService.DeletePosition(request);
+                return Ok();
             }
             catch (ArgumentOutOfRangeException)
             {
-                HttpContext.Response.StatusCode = 404;
+                return StatusCode((int)HttpStatusCode.MethodNotAllowed, $"Position with id {request.Id} is occupied");
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Id can not be empty");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -114,19 +116,20 @@ namespace Test_api.Controllers
         /// <param name="grade">Position grade</param>
         /// <returns>true if successful</returns>
         [HttpPost]
-        public void UpdatePosition(UpdatePositionRequest request)
+        public ActionResult UpdatePosition(UpdatePositionRequest request)
         {
             try
             {
                 _positionService.UpdatePosition(request);
+                return Ok();
             }
             catch (ArgumentException)
             {
-                HttpContext.Response.StatusCode = 406;
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "Id and name can not be empty, grade must be from 1 to 15");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                HttpContext.Response.StatusCode = 500;
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
         }
     }
