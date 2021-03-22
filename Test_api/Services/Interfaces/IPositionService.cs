@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Test_api.DTO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
-using Test_api.Entity;
 
 namespace Test_api.Services.Interfaces
 {
@@ -15,8 +15,8 @@ namespace Test_api.Services.Interfaces
         /// Get all positions of concrete employee by "employee id"
         /// </summary>
         /// <param name="id">Employee id</param>
-        /// <returns>All positions of employee <see cref="IEnumerable{T}"/><see cref="DbPosition"/></returns>
-        public IEnumerable<DbPosition> GetPositions(Guid id);
+        /// <returns>All positions of employee <see cref="IEnumerable{T}"/><see cref="Position"/></returns>
+        public IEnumerable<Position> GetPositions(Guid id);
 
         /// <summary>
         /// Get position by id
@@ -28,8 +28,8 @@ namespace Test_api.Services.Interfaces
         /// <summary>
         /// Get all positions
         /// </summary>
-        /// <returns>All positions <see cref="DbPosition"/><see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<DbPosition> GetPositions();
+        /// <returns>All positions <see cref="Position"/><see cref="IEnumerable{T}"/></returns>
+        public IEnumerable<Position> GetPositions();
 
         /// <summary>
         /// Create new position

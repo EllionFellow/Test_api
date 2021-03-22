@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Data;
-using Test_api.DO;
+using Test_api.DTO;
 using Test_api.Repositories.Interfaces;
 
 namespace Test_api.Repositories.Implementations
@@ -24,7 +24,7 @@ namespace Test_api.Repositories.Implementations
         #endregion
 
         /// <inheritdoc/>
-        public void DeleteEmployeePosition(DbEmployeePosition employeePosition)
+        public void DeleteEmployeePosition(EmployeePosition employeePosition)
         {
             _db.Execute("DELETE FROM employeeposition WHERE \"employeeid\" = @employeeId AND \"positionid\" = @positionId", employeePosition);
         }
@@ -37,7 +37,7 @@ namespace Test_api.Repositories.Implementations
         }
 
         /// <inheritdoc/>
-        public void NewEmployeePosition(DbEmployeePosition employeePosition)
+        public void NewEmployeePosition(EmployeePosition employeePosition)
         {
             _db.Execute("INSERT INTO employeeposition VALUES (@EmployeeId, @PositionId)", employeePosition);
         }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Test_api.Entity;
 
 namespace Test_api.DTO.Response
 {
@@ -37,6 +36,6 @@ namespace Test_api.DTO.Response
         /// <summary>
         /// Positions of employee
         /// </summary>
-        public IEnumerable<DbPosition> Positions { get; set; }
+        public IEnumerable<Position> Positions { get; set; }
     }
 }

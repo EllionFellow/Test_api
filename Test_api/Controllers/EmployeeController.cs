@@ -119,7 +119,7 @@ namespace Test_api.Controllers
                 _logger.LogError($"Error in DeleteEmployee: {e}");
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.ToString());
             }
-}
+        }
 
         /// <summary>
         /// Update employee

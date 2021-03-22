@@ -16,7 +16,7 @@ namespace Test_api.Controllers
         private readonly IEmployeePositionService _employeePositionService;
         private readonly ILogger _logger;
 
-        public EmployeePositionController(IEmployeePositionService employeePositionService, ILogger logger)
+        public EmployeePositionController(IEmployeePositionService employeePositionService, ILogger<EmployeePositionController> logger)
         {
             _employeePositionService = employeePositionService;
             _logger = logger;

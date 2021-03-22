@@ -1,5 +1,5 @@
 ﻿using System;
-using Test_api.DO;
+using Test_api.DTO;
 
 namespace Test_api.Repositories.Interfaces
 {
@@ -11,14 +11,14 @@ namespace Test_api.Repositories.Interfaces
         /// <summary>
         /// Create employee to position connection
         /// </summary>
-        /// <param name="employeePosition"><see cref="DbEmployeePosition"/></param>
-        public void NewEmployeePosition(DbEmployeePosition employeePosition);
+        /// <param name="employeePosition"><see cref="EmployeePosition"/></param>
+        public void NewEmployeePosition(EmployeePosition employeePosition);
 
         /// <summary>
         /// Delete employee to position connection
         /// </summary>
-        /// <param name="employeePosition"><see cref="DbEmployeePosition"/></param>
-        public void DeleteEmployeePosition(DbEmployeePosition employeePosition);
+        /// <param name="employeePosition"><see cref="EmployeePosition"/></param>
+        public void DeleteEmployeePosition(EmployeePosition employeePosition);
 
         /// <summary>
         /// Is there an employee busy on concrete position

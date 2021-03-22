@@ -1,5 +1,4 @@
 ﻿using AutoMapper.Configuration;
-using System;
 using Test_api.DO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
@@ -20,6 +19,7 @@ namespace Test_api.DTO
 
             CreateMap<Employee, DbEmployee>();
 
+
             CreateMap<NewEmployeeRequest, DbEmployee>();
 
             CreateMap<UpdateEmployeeRequest, DbEmployee>()
@@ -29,6 +29,9 @@ namespace Test_api.DTO
             #endregion
 
             #region Position
+            CreateMap<DbPosition, Position>()
+                .ReverseMap();
+
             CreateMap<NewPositionRequest, DbPosition>()
                 .ForMember(x => x.Id, y => y.Ignore());
 
@@ -39,9 +42,12 @@ namespace Test_api.DTO
             #endregion
 
             #region EmployeePosition
-            CreateMap<NewEmployeePositionRequest, DbEmployeePosition>();
+            CreateMap<DbEmployeePosition, EmployeePosition>()
+                .ReverseMap();
 
-            CreateMap<DeleteEmployeePositionRequest, DbEmployeePosition>();
+            CreateMap<NewEmployeePositionRequest, EmployeePosition>();
+
+            CreateMap<DeleteEmployeePositionRequest, EmployeePosition>();
             #endregion
 
         }

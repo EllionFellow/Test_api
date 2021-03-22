@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using Test_api.DTO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
-using Test_api.Entity;
 using Test_api.Services.Interfaces;
 
 namespace Test_api.Controllers
@@ -19,7 +19,7 @@ namespace Test_api.Controllers
         private readonly IPositionService _positionService;
         private readonly ILogger _logger;
 
-        public PositionController(IPositionService positionService, ILogger logger)
+        public PositionController(IPositionService positionService, ILogger<PositionController> logger)
         {
             _positionService = positionService;
             _logger = logger;
@@ -30,9 +30,9 @@ namespace Test_api.Controllers
         /// <summary>
         /// Get all positions
         /// </summary>
-        /// <returns>All positions <see cref="DbPosition"/><see cref="IEnumerable{T}"/></returns>
+        /// <returns>All positions <see cref="Position"/><see cref="IEnumerable{T}"/></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<DbPosition>> GetPositions()
+        public ActionResult<IEnumerable<Position>> GetPositions()
         {
             try
             {

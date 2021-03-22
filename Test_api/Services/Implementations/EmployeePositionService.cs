@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using System;
-using Test_api.DO;
+using Test_api.DTO;
 using Test_api.DTO.Request;
 using Test_api.Repositories.Interfaces;
 using Test_api.Services.Interfaces;
@@ -33,7 +33,7 @@ namespace Test_api.Services.Implementations
             {
                 throw new ArgumentException();
             }
-            _employeePositionRepository.DeleteEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, DbEmployeePosition>(request));
+            _employeePositionRepository.DeleteEmployeePosition(_mapper.Map<DeleteEmployeePositionRequest, EmployeePosition>(request));
         }
 
         /// <inheritdoc/>
@@ -43,7 +43,7 @@ namespace Test_api.Services.Implementations
             {
                 throw new ArgumentException();
             }
-            _employeePositionRepository.NewEmployeePosition(_mapper.Map<NewEmployeePositionRequest, DbEmployeePosition>(request));
+            _employeePositionRepository.NewEmployeePosition(_mapper.Map<NewEmployeePositionRequest, EmployeePosition>(request));
         }
 
         /// <inheritdoc/>

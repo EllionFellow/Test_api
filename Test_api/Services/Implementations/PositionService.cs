@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using Test_api.DTO;
 using Test_api.DTO.Request;
 using Test_api.DTO.Response;
 using Test_api.Entity;
@@ -31,7 +32,7 @@ namespace Test_api.Services.Implementations
         /// <inheritdoc/>
         public void NewPosition(NewPositionRequest request)
         {
-            if (request.Grade < 0 || request.Grade > 15 || request.Name==string.Empty) throw new ArgumentException();
+            if (request.Grade < 0 || request.Grade > 15 || request.Name == string.Empty) throw new ArgumentException();
             DbPosition dbPosition = _mapper.Map<NewPositionRequest, DbPosition>(request);
             dbPosition.Id = Guid.NewGuid();
             _positionRepository.NewPosition(dbPosition);
@@ -65,9 +66,15 @@ namespace Test_api.Services.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<DbPosition> GetPositions(Guid id)
+        public IEnumerable<Position> GetPositions(Guid id)
         {
-            return _positionRepository.GetEmployeePositions(id);
+            var dbPositions = _positionRepository.GetEmployeePositions(id);
+            var positions = new List<Position>();
+            foreach (var item in dbPositions)
+            {
+                positions.Add(_mapper.Map<DbPosition, Position>(item));
+            }
+            return positions;
         }
 
         /// <inheritdoc/>
@@ -82,9 +89,15 @@ namespace Test_api.Services.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<DbPosition> GetPositions()
+        public IEnumerable<Position> GetPositions()
         {
-            return _positionRepository.GetPositions();
+            var dbPositions = _positionRepository.GetPositions();
+            var positions = new List<Position>();
+            foreach (var item in dbPositions)
+            {
+                positions.Add(_mapper.Map<DbPosition, Position>(item));
+            }
+            return positions;
         }
     }
 }
