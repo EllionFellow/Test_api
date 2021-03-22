@@ -37,6 +37,7 @@ namespace Test_api
             }
         }
 
+        /// <inheritdoc/>
         public DbEmployee GetEmployee(Guid id)
         {
             try
@@ -72,6 +73,9 @@ namespace Test_api
                 "WHERE \"id\" = @Id", employee);
         }
 
+        /// <summary>
+        /// Connection disposal
+        /// </summary>
         ~EmployeeRepository()
         {
             _db.Dispose();

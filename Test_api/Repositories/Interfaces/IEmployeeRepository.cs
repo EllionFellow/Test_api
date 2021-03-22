@@ -18,32 +18,26 @@ namespace Test_api
         /// <summary>
         /// Get employee by id
         /// </summary>
-        /// <param name="id"><see cref="DbEmployee"/></param>
+        /// <param name="id">Employee id</param>
         /// <returns></returns>
         public DbEmployee GetEmployee(Guid id);
 
         /// <summary>
         /// Create new employee
         /// </summary>
-        /// <param name="lastName">Last name (фамилия)</param>
-        /// <param name="firstName">First name (имя)</param>
-        /// <param name="middleName">Middle name (отчество) - nullable(не обязательно)</param>
-        /// <param name="birthDate">Date of birth (дата рождения)</param>
-        /// <returns>id if successful, else null</returns>
+        /// <param name="employee"><see cref="DbEmployee"/></param>
         public void NewEmployee(DbEmployee employee);
 
         /// <summary>
         /// Delete emloyee by ID
         /// </summary>
         /// <param name="id">Employee id</param>
-        /// <returns>true, if successful</returns>
         public void DeleteEmployee(Guid id);
 
         /// <summary>
         /// Change employee
         /// </summary>
-        /// <param name="employee">New employee data (id cannot be changed)</param>
-        /// <returns>true, if successful</returns>
+        /// <param name="employee"><see cref="DbEmployee"/></param>
         public void UpdateEmployee(DbEmployee employee);
     }
 }

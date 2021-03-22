@@ -26,6 +26,7 @@ namespace Test_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Init controllers
             services.AddControllers();
 
             //register mapper
@@ -34,18 +35,25 @@ namespace Test_api
             //Init swagger generator
             services.AddSwaggerGen();
 
+            //Init database connection
             services.AddScoped<IDbConnection, DbConnection>();
 
+            //Init employee repo
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+            //Init position repo
             services.AddScoped<IPositionRepository, PositionRepository>();
 
+            //Init employee-position repo
             services.AddScoped<IEmployeePositionRepository, EmployeePositionRepository>();
 
+            //Init  employee service
             services.AddScoped<IEmployeeService, EmployeeService>();
 
+            //Init position service
             services.AddScoped<IPositionService, PositionService>();
 
+            //Init employee-position service
             services.AddScoped<IEmployeePositionService, EmployeePositionService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,15 +66,17 @@ namespace Test_api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
+            //Init swagger
             app.UseSwagger();
 
+            //Init swagger user interface
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test_api");

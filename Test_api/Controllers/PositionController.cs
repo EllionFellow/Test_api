@@ -49,7 +49,7 @@ namespace Test_api.Controllers
         /// Get position by id
         /// </summary>
         /// <param name="id">Position id</param>
-        /// <returns></returns>
+        /// <returns><see cref="GetPositionResponse"/></returns>
         [HttpGet("{id:Guid}")]
         public ActionResult<GetPositionResponse> GetPosition(Guid id)
         {
@@ -91,7 +91,6 @@ namespace Test_api.Controllers
         /// Delete position
         /// </summary>
         /// <param name="id">Position id</param>
-        /// <returns>true if successful</returns>
         [HttpDelete]
         public ActionResult DeletePosition(DeletePositionRequest request)
         {
@@ -118,10 +117,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Update position
         /// </summary>
-        /// <param name="id">Position id</param>
-        /// <param name="name">Position name</param>
-        /// <param name="grade">Position grade</param>
-        /// <returns>true if successful</returns>
+        /// <param name="request"><see cref="UpdatePositionRequest"/></param>
         [HttpPost]
         public ActionResult UpdatePosition(UpdatePositionRequest request)
         {

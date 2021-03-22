@@ -47,5 +47,13 @@ namespace Test_api.Repositories.Implementations
         {
             _db.Execute("DELETE FROM employeeposition WHERE \"employeeid\" = @id", new { id });
         }
+
+        /// <summary>
+        /// Connection disposal
+        /// </summary>
+        ~EmployeePositionRepository()
+        {
+            _db.Dispose();
+        }
     }
 }

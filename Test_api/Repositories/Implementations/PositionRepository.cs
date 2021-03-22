@@ -64,5 +64,13 @@ namespace Test_api.Repositories.Impl
         {
             return _db.QuerySingle<DbPosition>($"SELECT id, name, grade FROM position WHERE id = @id", new { id });
         }
+
+        /// <summary>
+        /// Connection disposal
+        /// </summary>
+        ~PositionRepository()
+        {
+            _db.Dispose();
+        }
     }
 }

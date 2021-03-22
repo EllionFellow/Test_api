@@ -22,7 +22,7 @@ namespace Test_api.Services.Interfaces
         /// Get position by id
         /// </summary>
         /// <param name="id">Position id</param>
-        /// <returns><see cref="DbPosition"/></returns>
+        /// <returns><see cref="GetPositionResponse"/></returns>
         public GetPositionResponse GetPosition(Guid id);
 
         /// <summary>
@@ -34,19 +34,19 @@ namespace Test_api.Services.Interfaces
         /// <summary>
         /// Create new position
         /// </summary>
-        /// <param name="dbPosition"></param>
+        /// <param name="request"><see cref="NewPositionRequest"/></param>
         public void NewPosition(NewPositionRequest request);
 
         /// <summary>
         /// Delete position
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="request"><see cref="DeletePositionRequest"/></param>
         public void DeletePosition(DeletePositionRequest request);
 
         /// <summary>
         /// Update existing position
         /// </summary>
-        /// <param name="dbPosition"></param>
+        /// <param name="request"><see cref="UpdatePositionRequest"/></param>
         public void UpdatePosition(UpdatePositionRequest request);
     }
 }

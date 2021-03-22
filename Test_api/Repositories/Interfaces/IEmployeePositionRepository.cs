@@ -11,15 +11,13 @@ namespace Test_api.Repositories.Interfaces
         /// <summary>
         /// Create employee to position connection
         /// </summary>
-        /// <param name="employeeId">Employee id</param>
-        /// <param name="positionId">Position id</param>
+        /// <param name="employeePosition"><see cref="DbEmployeePosition"/></param>
         public void NewEmployeePosition(DbEmployeePosition employeePosition);
 
         /// <summary>
         /// Delete employee to position connection
         /// </summary>
-        /// <param name="employeeId">Employee id</param>
-        /// <param name="positionId">Position id</param>
+        /// <param name="employeePosition"><see cref="DbEmployeePosition"/></param>
         public void DeleteEmployeePosition(DbEmployeePosition employeePosition);
 
         /// <summary>

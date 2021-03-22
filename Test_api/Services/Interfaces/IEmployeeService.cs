@@ -18,8 +18,8 @@ namespace Test_api.Services.Interfaces
         /// <summary>
         /// Get employee by id
         /// </summary>
-        /// <param name="request"><see cref="GetEmployeeRequest"/></param>
-        /// <returns></returns>
+        /// <param name="id">Employee id</param>
+        /// <returns><see cref="GetEmployeeResponse"/></returns>
         public GetEmployeeResponse GetEmployee(Guid id);
 
         /// <summary>

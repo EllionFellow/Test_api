@@ -48,6 +48,7 @@ namespace Test_api.Controllers
         /// Get employee
         /// </summary>
         /// <returns>Employee<see cref="Employee"/></returns>
+        /// <param name="id">Employee id</param>
         [HttpGet("{id:Guid}")]
         public ActionResult<GetEmployeeResponse> GetEmployee(Guid id)
         {
@@ -73,13 +74,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Create new employee
         /// </summary>
-        /// <param name="lastName">Last name</param>
-        /// <param name="firstName">First name</param>
-        /// <param name="middleName">Middle name</param>
-        /// <param name="yearOfBirth">Year of birth</param>
-        /// <param name="monthOfBirth">Month of birth</param>
-        /// <param name="dayOfBirth">Day of birth</param>
-        /// <returns></returns>
+        /// <param name="request"><see cref="NewEmployeeRequest"/></param>
         [HttpPut]
         public ActionResult NewEmployee(NewEmployeeRequest request)
         {
@@ -129,13 +124,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Update employee
         /// </summary>
-        /// <param name="id">Employee id</param>
-        /// <param name="lastName">Last name</param>
-        /// <param name="firstName">First name</param>
-        /// <param name="middleName">Middle name</param>
-        /// <param name="yearOfBirth">Year of birth</param>
-        /// <param name="monthOfBirth">Month of birth</param>
-        /// <param name="dayOfBirth">Day of birth</param>
+        /// <param name="request"><see cref="UpdateEmployeeRequest"/></param>
         [HttpPost]
         public ActionResult UpdateEmployee(UpdateEmployeeRequest request)
         {

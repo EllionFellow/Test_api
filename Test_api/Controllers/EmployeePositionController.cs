@@ -27,7 +27,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Create new employee - position connection
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request"><see cref="NewEmployeePositionRequest"/></param>
         [HttpPut]
         public ActionResult NewEmployeePosition(NewEmployeePositionRequest request)
         {
@@ -50,7 +50,7 @@ namespace Test_api.Controllers
         /// <summary>
         /// Delete employee - position connection
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request"><see cref="DeleteEmployeePositionRequest"/></param>
         [HttpDelete]
         public ActionResult DeleteEmployeePosition(DeleteEmployeePositionRequest request)
         {
